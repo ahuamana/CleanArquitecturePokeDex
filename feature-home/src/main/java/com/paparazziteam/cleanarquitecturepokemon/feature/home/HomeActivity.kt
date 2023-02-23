@@ -3,6 +3,8 @@ package com.paparazziteam.cleanarquitecturepokemon.feature.home
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.paparazziteam.cleanarquitecturepokemon.feature.home.adapters.RegionAdapter
 import com.paparazziteam.cleanarquitecturepokemon.feature.home.databinding.ActivityHomeBinding
 import com.paparazziteam.cleanarquitecturepokemon.shared.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -13,11 +15,24 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
 
     private val viewModel by viewModels<HomeViewModel>()
 
+    private var mAdapterRegion = RegionAdapter()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
+        setupRecyclerViewRegions()
         observers()
+    }
+
+    private fun setupRecyclerViewRegions() {
+        binding.rvRegions.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            adapter = mAdapterRegion
+        }
+
+        mAdapterRegion.onItemClick { region, position ->
+            viewModel.updateRegionSelected(region)
+        }
     }
 
     private fun observers() {
@@ -37,10 +52,8 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
 
                 }
                 is HomeViewModel.RegionsState.Success -> {
-                    println("Success")
-                    it.regions.forEach { region ->
-                        println(region.name)
-                    }
+                    mAdapterRegion.submitList(it.regions)
+                    mAdapterRegion.notifyDataSetChanged()
                 }
             }
         }

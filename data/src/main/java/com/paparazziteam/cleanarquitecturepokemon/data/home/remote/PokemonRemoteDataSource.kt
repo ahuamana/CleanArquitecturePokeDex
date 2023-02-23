@@ -8,4 +8,6 @@ class PokemonRemoteDataSource @Inject constructor(
 ):BaseDataSource() {
     suspend fun getRegions() = getResult { pokemonService.getRegions() }
 
+    suspend fun getLocationsByRegion(regionId:Int) = getResult { pokemonService.getLocationsByRegion(regionId) }
+
 }

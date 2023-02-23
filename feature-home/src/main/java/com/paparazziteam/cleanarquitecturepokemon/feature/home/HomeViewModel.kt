@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.paparazziteam.cleanarquitecturepokemon.domain.Region
+import com.paparazziteam.cleanarquitecturepokemon.domain.RegionResponse
 import com.paparazziteam.cleanarquitecturepokemon.usecases.GetRegionsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import pe.com.tarjetaw.android.client.shared.network.Event
@@ -18,6 +19,9 @@ class HomeViewModel @Inject constructor(
     private val _eventsRegions = MutableLiveData<Event<RegionsState>>()
     val eventsRegions:LiveData<Event<RegionsState>> get() = _eventsRegions
 
+    private val regions = mutableListOf<Region>()
+    private var currectRegionSelected:String = ""
+
     init {
         getRegions()
     }
@@ -26,8 +30,7 @@ class HomeViewModel @Inject constructor(
         when(it.status){
             Resource.Status.SUCCESS -> it.run{
                 data?.let { response->
-                    _eventsRegions.value = Event(RegionsState.HideLoading)
-                    _eventsRegions.value = Event(RegionsState.Success(response.results))
+                    handleSuccess(response)
                 }
             }
             Resource.Status.ERROR -> it.run{
@@ -40,6 +43,25 @@ class HomeViewModel @Inject constructor(
                 _eventsRegions.value = Event(RegionsState.ShowLoading)
             }
         }
+    }
+
+    private fun handleSuccess(response: RegionResponse) {
+        regions.addAll(response.results)
+        selectFirstRegion()
+        _eventsRegions.value = Event(RegionsState.HideLoading)
+        _eventsRegions.value = Event(RegionsState.Success(regions))
+    }
+
+    private fun selectFirstRegion() {
+        regions.first().isSelected = true
+        currectRegionSelected = regions.first().name
+    }
+
+    fun updateRegionSelected(region: Region) {
+        regions.forEach {
+            it.isSelected = it.name == region.name
+        }
+        _eventsRegions.value = Event(RegionsState.Success(regions))
     }
 
     sealed class RegionsState {

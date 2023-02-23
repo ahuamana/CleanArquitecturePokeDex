@@ -10,4 +10,8 @@ class PokemonRepository @Inject constructor(
     fun getRegions() =  performOnlyNetwork(
         networkCall = {pokemonRemoteDataSource.getRegions()}
     )
+
+    fun getLocationsByRegion(regionId:Int) =  performOnlyNetwork(
+        networkCall = {pokemonRemoteDataSource.getLocationsByRegion(regionId)}
+    )
 }
