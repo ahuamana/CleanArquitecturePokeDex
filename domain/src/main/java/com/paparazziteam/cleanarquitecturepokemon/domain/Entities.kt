@@ -1,0 +1,2 @@
+package com.paparazziteam.cleanarquitecturepokemon.domain
+

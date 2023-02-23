@@ -1,10 +1,12 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'dagger.hilt.android.plugin'
+    id 'kotlin-kapt'
 }
 
 android {
-    namespace 'com.paparazziteam.cleanarquitecturepokemon.shared'
+    namespace 'com.paparazziteam.cleanarquitecturepokemon.data'
     compileSdk rootProject.ext.compileSdkVersion
 
     defaultConfig {
@@ -29,10 +31,6 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-
-    buildFeatures {
-        viewBinding true
-    }
 }
 
 dependencies {
@@ -43,4 +41,8 @@ dependencies {
     testImplementation junit
     androidTestImplementation testJunit
     androidTestImplementation espresso
+
+    // Hilt
+    implementation hiltAndroid
+    kapt hiltAndroidCompiler
 }

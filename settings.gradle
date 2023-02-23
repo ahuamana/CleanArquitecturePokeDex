@@ -15,3 +15,6 @@ dependencyResolutionManagement {
 rootProject.name = "CleanArquitecturePokemon"
 include ':app'
 include ':shared'
+include ':data'
+include ':domain'
+include ':feature-home'

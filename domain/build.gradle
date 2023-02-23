@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace 'com.paparazziteam.cleanarquitecturepokemon.shared'
+    namespace 'com.paparazziteam.cleanarquitecturepokemon.domain'
     compileSdk rootProject.ext.compileSdkVersion
 
     defaultConfig {
@@ -29,18 +29,8 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-
-    buildFeatures {
-        viewBinding true
-    }
 }
 
 dependencies {
 
-    implementation coreKtxLib
-    implementation materialLib
-    implementation appCompatLib
-    testImplementation junit
-    androidTestImplementation testJunit
-    androidTestImplementation espresso
 }
