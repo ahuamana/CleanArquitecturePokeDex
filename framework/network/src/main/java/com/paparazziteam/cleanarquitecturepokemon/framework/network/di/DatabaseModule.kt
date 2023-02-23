@@ -23,7 +23,7 @@ object DatabaseModule {
 
 
     @Provides
-    @Named(RETROFIT_BUILDER_POKEAPI)
+    //@Named(RETROFIT_BUILDER_POKEAPI)
     fun provideRetrofitPromotions(gson: Gson, client: OkHttpClient): Retrofit = Retrofit.Builder()
         .client(client)
         .baseUrl(Constans.BASE_URL)

@@ -46,6 +46,7 @@ dependencies {
     implementation project(':shared')
     implementation project(':feature-home')
     implementation project(':domain')
+    implementation project(':usecases')
 
     implementation coreKtxLib
     implementation appCompatLib
@@ -58,6 +59,10 @@ dependencies {
     // Hilt
     implementation hiltAndroid
     kapt hiltAndroidCompiler
+
+    // viewModelExtensionsLib
+    implementation viewModelExtensionForActivityLib
+    implementation viewModelExtensionForFragmentLib
 
     implementation platform('com.google.firebase:firebase-bom:31.0.2')
     implementation 'com.google.firebase:firebase-crashlytics-ktx'

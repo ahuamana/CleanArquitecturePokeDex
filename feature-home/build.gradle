@@ -41,16 +41,27 @@ android {
 dependencies {
 
     implementation project(':shared')
+    implementation project(':domain')
+    implementation project(':usecases')
 
     implementation coreKtxLib
     implementation materialLib
     implementation appCompatLib
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation constraintLayoutLib
     testImplementation junit
     androidTestImplementation testJunit
-    androidTestImplementation espresso
 
     // Hilt
     implementation hiltAndroid
     kapt hiltAndroidCompiler
+
+    //lifecycle
+    implementation lifecycleViewModelLib
+    implementation lifecycleLiveDataLib
+    implementation lifecycleCommomLib
+
+
+    // viewModelExtensionsLib
+    implementation viewModelExtensionForFragmentLib
+
 }
