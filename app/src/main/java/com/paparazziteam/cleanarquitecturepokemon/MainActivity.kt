@@ -1,8 +1,7 @@
 package com.paparazziteam.cleanarquitecturepokemon
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
-import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -12,6 +11,7 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.paparazziteam.cleanarquitecturepokemon.databinding.ActivityMainBinding
+import com.paparazziteam.cleanarquitecturepokemon.feature.home.HomeActivity
 import com.paparazziteam.cleanarquitecturepokemon.shared.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -65,13 +65,17 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
             if (!it.isSuccessful) {
                 return@addOnCompleteListener
             }
-            goToHome()
+            goToHome(account)
         }
     }
 
-    private fun goToHome() {
-        println("Inicio de sesion exitoso")
-
+    private fun goToHome(account: GoogleSignInAccount) {
+        val intent = Intent(this, HomeActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            putExtra("email", account.email)
+            putExtra("name", account.displayName)
+        }
+        startActivity(intent)
     }
 
     private fun setupGoogleSignIn() {

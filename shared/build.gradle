@@ -43,4 +43,13 @@ dependencies {
     testImplementation junit
     androidTestImplementation testJunit
     androidTestImplementation espresso
+
+    //Coroutinas
+    implementation coroutinesLib
+    implementation coroutinesCoreLib
+
+    //Lifecycle
+    implementation lifecycleCommomLib
+    implementation lifecycleLiveDataLib
+    implementation lifecycleViewModelLib
 }

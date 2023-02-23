@@ -44,6 +44,8 @@ android {
 dependencies {
 
     implementation project(':shared')
+    implementation project(':feature-home')
+    implementation project(':domain')
 
     implementation coreKtxLib
     implementation appCompatLib

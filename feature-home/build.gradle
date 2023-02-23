@@ -40,9 +40,12 @@ android {
 
 dependencies {
 
+    implementation project(':shared')
+
     implementation coreKtxLib
     implementation materialLib
     implementation appCompatLib
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     testImplementation junit
     androidTestImplementation testJunit
     androidTestImplementation espresso

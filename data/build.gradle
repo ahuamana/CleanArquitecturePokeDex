@@ -35,6 +35,8 @@ android {
 
 dependencies {
 
+    implementation project(':domain')
+
     implementation coreKtxLib
     implementation materialLib
     implementation appCompatLib
@@ -45,4 +47,8 @@ dependencies {
     // Hilt
     implementation hiltAndroid
     kapt hiltAndroidCompiler
+
+    //Retrofit
+    implementation retrofitLib
+    implementation gsonConverterLib
 }

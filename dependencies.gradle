@@ -12,6 +12,9 @@ ext{
     def okhttpVersion = "4.9.0"
     def lifecycleVersion = "2.5.1"
     def glideVer = '4.13.2'
+    def retrofitVersion = "2.9.0"
+    def gsonConverterVersion = "2.9.0"
+    def gsonSerializableVersion = "2.10"
 
     // Hilt
     hiltAndroid = "com.google.dagger:hilt-android:$hiltVersion"
@@ -53,6 +56,9 @@ ext{
     constraintLayoutLib = "androidx.constraintlayout:constraintlayout:2.1.4"
 
 
-
+    // Retrofit
+    retrofitLib = "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    gsonConverterLib = "com.squareup.retrofit2:converter-gson:$gsonConverterVersion"
+    gsonSerializableLib = "com.google.code.gson:gson:$gsonSerializableVersion"
 
 }
