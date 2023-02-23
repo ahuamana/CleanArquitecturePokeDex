@@ -11,3 +11,8 @@ data class Region(
     val name: String,
     val url: String
 )
+
+
+data class GeneralErrorResponse(
+    val error: Error
+)

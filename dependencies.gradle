@@ -61,4 +61,7 @@ ext{
     gsonConverterLib = "com.squareup.retrofit2:converter-gson:$gsonConverterVersion"
     gsonSerializableLib = "com.google.code.gson:gson:$gsonSerializableVersion"
 
+    //Logging Interceptor
+    loggingInterceptorLib = "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
+    okhttpLib = "com.squareup.okhttp3:okhttp:$okhttpVersion"
 }

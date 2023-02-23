@@ -1,10 +1,14 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-parcelize'
+    id 'kotlin-kapt'
+    id 'org.jetbrains.kotlin.plugin.serialization'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
-    namespace 'com.paparazziteam.cleanarquitecturepokemon.shared'
+    namespace 'com.paparazziteam.cleanarquitecturepokemon.framework.network'
     compileSdk rootProject.ext.compileSdkVersion
 
     defaultConfig {
@@ -29,30 +33,24 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-
-    buildFeatures {
-        viewBinding true
-    }
 }
 
 dependencies {
 
-    implementation coreKtxLib
-    implementation materialLib
-    implementation appCompatLib
-    testImplementation junit
-    androidTestImplementation testJunit
-    androidTestImplementation espresso
+    implementation (project(':domain'))
+    implementation (project(':shared'))
 
-    //Coroutinas
-    implementation coroutinesLib
-    implementation coroutinesCoreLib
+    // Hilt
+    implementation hiltAndroid
+    kapt hiltAndroidCompiler
 
-    //Lifecycle
-    implementation lifecycleCommomLib
-    implementation lifecycleLiveDataLib
-    implementation lifecycleViewModelLib
+    //Retrofit
+    implementation retrofitLib
+    implementation gsonConverterLib
+    implementation loggingInterceptorLib
+    implementation okhttpLib
 
     //Json
     implementation jsonNativeLib
+
 }
