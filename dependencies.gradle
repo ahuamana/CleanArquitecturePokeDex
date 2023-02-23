@@ -1,0 +1,58 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+ext{
+    compileSdkVersion = 33
+    minSdkVersion = 26
+    targetSdkVersion = 33
+    versionCode = 1
+    versionName = "1.0.0"
+
+    def hiltVersion = "2.44"
+    def jsonVersion = "1.4.1"
+    def coroutinesVersion = '1.3.7'
+    def okhttpVersion = "4.9.0"
+    def lifecycleVersion = "2.5.1"
+    def glideVer = '4.13.2'
+
+    // Hilt
+    hiltAndroid = "com.google.dagger:hilt-android:$hiltVersion"
+    hiltAndroidCompiler = "com.google.dagger:hilt-compiler:$hiltVersion"
+
+    // Json
+    jsonNativeLib = "org.jetbrains.kotlinx:kotlinx-serialization-json:$jsonVersion"
+
+    //Logging Interceptor
+    loggingInterceptorLib = "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
+    okhttpLib = "com.squareup.okhttp3:okhttp:$okhttpVersion"
+
+    coroutinesCoreLib = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
+    coroutinesLib  = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
+
+    lifecycleViewModelLib = "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
+    lifecycleLiveDataLib = "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion"
+    lifecycleCommomLib = "androidx.lifecycle:lifecycle-common-java8:$lifecycleVersion"
+
+    //Glide
+    glideLibrary = "com.github.bumptech.glide:glide:$glideVer"
+    glideCompilerLibrary = "com.github.bumptech.glide:compiler:$glideVer"
+
+    // Junit
+    junit = "junit:junit:4.13.2"
+    testJunit = "androidx.test.ext:junit:1.1.3"
+    espresso = "androidx.test.espresso:espresso-core:3.4.0"
+
+    //Material
+    materialLib = "com.google.android.material:material:1.8.0"
+
+    //AppCompat
+    appCompatLib = "androidx.appcompat:appcompat:1.6.1"
+
+    //Core
+    coreKtxLib = "androidx.core:core-ktx:1.7.0"
+
+    //ConstraintLayout
+    constraintLayoutLib = "androidx.constraintlayout:constraintlayout:2.1.4"
+
+
+
+
+}

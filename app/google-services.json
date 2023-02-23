@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "51461758307",
+    "firebase_url": "https://cleanarquitecturepokeapi-default-rtdb.firebaseio.com",
+    "project_id": "cleanarquitecturepokeapi",
+    "storage_bucket": "cleanarquitecturepokeapi.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:51461758307:android:f6fa31955df93c6b1a0756",
+        "android_client_info": {
+          "package_name": "com.paparazziteam.cleanarquitecturepokemon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "51461758307-idc9rlrd7gm9t2qc4i45bq2acjj5c6sj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.paparazziteam.cleanarquitecturepokemon",
+            "certificate_hash": "aae5dd62adf0089405e8869988388fa5e8842128"
+          }
+        },
+        {
+          "client_id": "51461758307-h5qb7h1m2j3uccq669ldrhp5v2591ri4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAcr2GIlD4hLPqA04l037Y3n7JtyTtiLc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "51461758307-h5qb7h1m2j3uccq669ldrhp5v2591ri4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
