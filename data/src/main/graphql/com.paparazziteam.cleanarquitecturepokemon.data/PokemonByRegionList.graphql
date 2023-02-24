@@ -1,0 +1,24 @@
+query GetPokemonByRegion($regionName: String = "kanto", $limit: Int = 10, $offset: Int = 0) {
+    pokemon_v2_generation(where: {pokemon_v2_region: {name: {_eq: $regionName}}}) {
+        pokemon_v2_pokemonspecies(limit: $limit, offset: $offset, order_by: {order: asc}) {
+            order
+            name
+            pokemon_v2_pokemonspeciesflavortexts {
+                flavor_text
+                pokemon_v2_language {
+                    iso639
+                }
+            }
+            pokemon_v2_pokemons {
+                pokemon_v2_pokemonsprites {
+                    sprites
+                }
+                pokemon_v2_pokemontypes {
+                    pokemon_v2_type {
+                        name
+                    }
+                }
+            }
+        }
+    }
+}
