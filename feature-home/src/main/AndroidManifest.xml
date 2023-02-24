@@ -3,6 +3,9 @@
 
     <application>
         <activity
+            android:name=".PokemonTeamActivity"
+            android:exported="false" />
+        <activity
             android:name=".HomeActivity"
             android:exported="false" />
     </application>

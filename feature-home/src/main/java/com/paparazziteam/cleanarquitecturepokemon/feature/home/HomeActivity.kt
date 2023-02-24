@@ -1,6 +1,7 @@
 package com.paparazziteam.cleanarquitecturepokemon.feature.home
 
 import android.app.Dialog
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -19,12 +20,13 @@ import com.paparazziteam.cleanarquitecturepokemon.domain.PokemonResponse
 import com.paparazziteam.cleanarquitecturepokemon.feature.home.adapters.PokemonAdapter
 import com.paparazziteam.cleanarquitecturepokemon.feature.home.adapters.RegionAdapter
 import com.paparazziteam.cleanarquitecturepokemon.feature.home.databinding.ActivityHomeBinding
+import com.paparazziteam.cleanarquitecturepokemon.feature.home.viewmodels.HomeViewModel
 import com.paparazziteam.cleanarquitecturepokemon.shared.base.BaseActivity
 import com.paparazziteam.cleanarquitecturepokemon.shared.components.GridSpacingItemDecoration
 import com.paparazziteam.cleanarquitecturepokemon.shared.databinding.CustomDialogCreateTeamBinding
-import com.paparazziteam.cleanarquitecturepokemon.shared.utils.createTeamDialog
 import dagger.hilt.android.AndroidEntryPoint
 import pe.com.tarjetaw.android.client.shared.network.Event
+
 
 @AndroidEntryPoint
 class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::inflate) {
@@ -57,6 +59,16 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
             }
             createTeamDialog(getString(com.paparazziteam.cleanarquitecturepokemon.shared.R.string.choose_team_name))
         }
+
+        binding.btnPokemonTeam.setOnClickListener {
+            startPokemonTeamActivity(arg_email)
+        }
+    }
+
+    fun startPokemonTeamActivity(email: String?) {
+        val intent = Intent(this, PokemonTeamActivity::class.java)
+        intent.putExtra("email", email)
+        startActivity(intent)
     }
 
     fun createTeamDialog(textDescription: String?,

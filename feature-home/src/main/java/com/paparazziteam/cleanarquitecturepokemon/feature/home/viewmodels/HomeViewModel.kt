@@ -1,4 +1,4 @@
-package com.paparazziteam.cleanarquitecturepokemon.feature.home
+package com.paparazziteam.cleanarquitecturepokemon.feature.home.viewmodels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
