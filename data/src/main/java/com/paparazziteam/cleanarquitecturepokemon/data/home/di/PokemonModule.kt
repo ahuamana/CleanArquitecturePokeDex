@@ -1,9 +1,8 @@
 package com.paparazziteam.cleanarquitecturepokemon.data.home.di
 
 import com.apollographql.apollo3.ApolloClient
-import com.paparazziteam.cleanarquitecturepokemon.data.home.remote.PokemonGraphQlDataSource
-import com.paparazziteam.cleanarquitecturepokemon.data.home.remote.PokemonRemoteDataSource
-import com.paparazziteam.cleanarquitecturepokemon.data.home.remote.PokemonService
+import com.google.firebase.database.DatabaseReference
+import com.paparazziteam.cleanarquitecturepokemon.data.home.remote.*
 import com.paparazziteam.cleanarquitecturepokemon.data.home.repository.PokemonRepository
 import com.paparazziteam.cleanarquitecturepokemon.framework.network.Constans.BASE_URL_GRAPHQL
 import dagger.Module
@@ -32,14 +31,22 @@ object PokemonModule {
     @Provides
     fun providePokemonGraphQlDataSource(apolloClient: ApolloClient) = PokemonGraphQlDataSource(apolloClient)
 
+    //firebase
+    @Singleton
+    @Provides
+    fun providePokemonFirebaseDataSource(
+        databaseReference: DatabaseReference
+    ):PokemonFirebaseSource = PokemonFirebaseSourceImpl(databaseReference)
+
 
     //Repository
     @Singleton
     @Provides
     fun provideRepository(
         remoteDataSource: PokemonRemoteDataSource,
-        graphQlDataSource: PokemonGraphQlDataSource
-    ) = PokemonRepository(remoteDataSource,graphQlDataSource)
+        graphQlDataSource: PokemonGraphQlDataSource,
+        pokemonFirebaseSource: PokemonFirebaseSource
+    ) = PokemonRepository(remoteDataSource,graphQlDataSource,pokemonFirebaseSource)
 
 
 }

@@ -69,6 +69,12 @@ data class PokemonResponse(
     var isSelected:Boolean = false
 )
 
+data class PokemonTeam(
+    val name: String,
+    val pokemon: List<PokemonResponse>,
+    val createdby: String = "",
+)
+
 //GraphQl
 
 

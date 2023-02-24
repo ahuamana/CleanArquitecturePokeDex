@@ -4,13 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.paparazziteam.cleanarquitecturepokemon.data.GetPokemonByRegionQuery
 import com.paparazziteam.cleanarquitecturepokemon.domain.*
-import com.paparazziteam.cleanarquitecturepokemon.shared.utils.toIntOrZero
-import com.paparazziteam.cleanarquitecturepokemon.usecases.GetLocationsByRegionUseCase
-import com.paparazziteam.cleanarquitecturepokemon.usecases.GetPokemonsByLocationUseCase
-import com.paparazziteam.cleanarquitecturepokemon.usecases.GetPokemonsByRegionUseCase
-import com.paparazziteam.cleanarquitecturepokemon.usecases.GetRegionsUseCase
+import com.paparazziteam.cleanarquitecturepokemon.usecases.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import pe.com.tarjetaw.android.client.shared.network.Event
@@ -20,7 +15,8 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val getRegionsUseCase: GetRegionsUseCase,
-    private val getPokemonsByRegionUseCase: GetPokemonsByRegionUseCase
+    private val getPokemonsByRegionUseCase: GetPokemonsByRegionUseCase,
+    private val createTeamUseCase: CreateTeamUseCase
 ) :ViewModel() {
 
     private val _eventsRegions = MutableLiveData<Event<RegionsState>>()
@@ -133,7 +129,7 @@ class HomeViewModel @Inject constructor(
         _eventsRegions.value = Event(RegionsState.Success(regions))
     }
 
-    fun createTeam(){
+    fun createTeam(arg_email: String, arg_name: String) {
         if(pokemonsAvailableSelected.size < limitPokemons.first) {
             _error.value = "You must select ${limitPokemons.first} pokemons at least"
             return
@@ -143,8 +139,18 @@ class HomeViewModel @Inject constructor(
             _error.value = "You must select ${limitPokemons.last} pokemons at most"
             return
         }
+        createTeamFirebase(arg_email, arg_name)
+    }
 
-        //TODO: create team in firebase realtime database
+    private fun createTeamFirebase(email:String, name:String){
+        val pokemonTeam = PokemonTeam(
+            name = name,
+            pokemon = getPokemonsSelected(),
+            createdby = email
+        )
+        viewModelScope.launch {
+            createTeamUseCase.invoke(pokemonTeam)
+        }
     }
 
     sealed class RegionsState {

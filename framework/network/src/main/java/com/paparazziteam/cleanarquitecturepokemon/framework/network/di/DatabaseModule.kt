@@ -30,5 +30,4 @@ object DatabaseModule {
         .addConverterFactory(GsonConverterFactory.create(gson))
         //.addCallAdapterFactory(RootCallAdapterFactory(rootBear))
         .build()
-
 }

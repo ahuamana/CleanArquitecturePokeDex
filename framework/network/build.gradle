@@ -61,4 +61,6 @@ dependencies {
     //GraphQl
     implementation graphQlLib
 
+    //_Firebase
+    implementation firebaseRealtimeDatabaseLib
 }

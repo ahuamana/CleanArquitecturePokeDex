@@ -23,8 +23,11 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
     private var mAdapterRegion = RegionAdapter()
     private var mAdapterPokemon = PokemonAdapter()
 
+    private var arg_email = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        extras()
         setContentView(binding.root)
         setupRecyclerViewRegions()
         setupRecyclerViewPokemons()
@@ -32,9 +35,13 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
         observers()
     }
 
+    private fun extras() {
+        arg_email = intent.getStringExtra("email") ?: ""
+    }
+
     private fun listeners() {
         binding.fabCreateTeam.setOnClickListener {
-            viewModel.createTeam()
+            viewModel.createTeam(arg_email, "Team 1")
         }
     }
 

@@ -79,4 +79,8 @@ ext{
     glideLibrary = "com.github.bumptech.glide:glide:$glideVer"
     glideCompilerLibrary = "com.github.bumptech.glide:compiler:$glideVer"
 
+    //Firebase Realtime Database
+    firebaseRealtimeDatabaseLib = "com.google.firebase:firebase-database-ktx:20.1.0"
+
+
 }
