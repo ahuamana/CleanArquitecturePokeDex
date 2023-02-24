@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="login_google">Login with Google</string>
+    <string name="choose_team_name">Choose the team name</string>
+    <string name="enter_team_name">Enter team name</string>
 </resources>

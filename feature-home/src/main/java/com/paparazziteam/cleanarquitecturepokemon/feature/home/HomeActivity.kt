@@ -1,8 +1,17 @@
 package com.paparazziteam.cleanarquitecturepokemon.feature.home
 
+import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.Window
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.annotation.ColorRes
+import androidx.annotation.DrawableRes
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,6 +21,8 @@ import com.paparazziteam.cleanarquitecturepokemon.feature.home.adapters.RegionAd
 import com.paparazziteam.cleanarquitecturepokemon.feature.home.databinding.ActivityHomeBinding
 import com.paparazziteam.cleanarquitecturepokemon.shared.base.BaseActivity
 import com.paparazziteam.cleanarquitecturepokemon.shared.components.GridSpacingItemDecoration
+import com.paparazziteam.cleanarquitecturepokemon.shared.databinding.CustomDialogCreateTeamBinding
+import com.paparazziteam.cleanarquitecturepokemon.shared.utils.createTeamDialog
 import dagger.hilt.android.AndroidEntryPoint
 import pe.com.tarjetaw.android.client.shared.network.Event
 
@@ -41,7 +52,33 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
 
     private fun listeners() {
         binding.fabCreateTeam.setOnClickListener {
-            viewModel.createTeam(arg_email, "Team 1")
+            if(!viewModel.isAvailableToCreateTeam()){
+                return@setOnClickListener
+            }
+            createTeamDialog(getString(com.paparazziteam.cleanarquitecturepokemon.shared.R.string.choose_team_name))
+        }
+    }
+
+    fun createTeamDialog(textDescription: String?,
+                         @DrawableRes icon: Int = com.paparazziteam.cleanarquitecturepokemon.shared.R.drawable.pokeapi,
+                         @ColorRes color: Int = com.paparazziteam.cleanarquitecturepokemon.shared.R.color.colorPrimary): Dialog {
+        var customBinding = CustomDialogCreateTeamBinding.inflate(LayoutInflater.from(this))
+
+        return Dialog(this).apply{
+            setCancelable(true)
+            requestWindowFeature(Window.FEATURE_NO_TITLE)
+            setContentView(customBinding.root)
+            window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            window?.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)
+        }.also { dialog->
+            customBinding.tvDescription.text = textDescription?:""
+            customBinding.ivIcon.setImageResource(icon)
+            customBinding.btnOk.backgroundTintList = ContextCompat.getColorStateList(this, color)
+            customBinding.btnOk.setOnClickListener {
+                dialog.dismiss()
+                viewModel.createTeamFirebase(arg_email, customBinding.etTeamName.text.toString())
+            }
+            dialog.show()
         }
     }
 

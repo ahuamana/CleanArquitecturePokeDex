@@ -129,20 +129,21 @@ class HomeViewModel @Inject constructor(
         _eventsRegions.value = Event(RegionsState.Success(regions))
     }
 
-    fun createTeam(arg_email: String, arg_name: String) {
+
+    fun isAvailableToCreateTeam(): Boolean {
         if(pokemonsAvailableSelected.size < limitPokemons.first) {
             _error.value = "You must select ${limitPokemons.first} pokemons at least"
-            return
+            return false
         }
 
         if(pokemonsAvailableSelected.size > limitPokemons.last) {
             _error.value = "You must select ${limitPokemons.last} pokemons at most"
-            return
+            return false
         }
-        createTeamFirebase(arg_email, arg_name)
+        return true
     }
 
-    private fun createTeamFirebase(email:String, name:String){
+    fun createTeamFirebase(email:String, name:String){
         val pokemonTeam = PokemonTeam(
             name = name,
             pokemon = getPokemonsSelected(),

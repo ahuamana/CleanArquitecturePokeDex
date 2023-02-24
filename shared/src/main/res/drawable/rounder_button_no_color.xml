@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:drawable="@drawable/rounder_button_drawable">
+        <shape
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:shape="rectangle"
+            android:padding="10dp">
+            <corners android:radius="22.5dp"></corners>
+            <solid android:color="@color/colorPrimary"></solid>
+        </shape>
+    </item>
+
+</layer-list>
