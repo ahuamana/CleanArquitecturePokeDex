@@ -5,6 +5,7 @@ import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.paparazziteam.cleanarquitecturepokemon.domain.PokemonResponse
 import com.paparazziteam.cleanarquitecturepokemon.feature.home.adapters.PokemonAdapter
 import com.paparazziteam.cleanarquitecturepokemon.feature.home.adapters.RegionAdapter
 import com.paparazziteam.cleanarquitecturepokemon.feature.home.databinding.ActivityHomeBinding
@@ -52,8 +53,42 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
         }
 
         mAdapterPokemon.onItemClick { pokemon, position ->
-
+            handlePokemonSelected(pokemon, position)
         }
+    }
+
+    private fun handlePokemonSelected(selectedPokemon: PokemonResponse, selectedPosition: Int) {
+        if(isLimitReached() && !selectedPokemon.isSelected){
+            return
+        }
+
+        if(isLimitReached() && selectedPokemon.isSelected){
+            viewModel.removePokemonSelected(selectedPokemon)
+            updateAdapterSelection(selectedPosition)
+            return
+        }
+
+        togglePokemonSelection(selectedPokemon)
+        updateAdapterSelection(selectedPosition)
+    }
+
+    private fun updateAdapterSelection(position: Int) {
+        mAdapterPokemon.selectItem(position)
+    }
+
+    private fun togglePokemonSelection(pokemon: PokemonResponse) {
+        if (pokemon.isSelected) {
+            viewModel.removePokemonSelected(pokemon)
+        } else {
+            viewModel.addPokemonSelected(pokemon)
+        }
+    }
+
+
+    private fun isLimitReached(): Boolean {
+        val selectedPokemons = viewModel.getPokemonsSelected()
+        val limit = viewModel.getLimitPokemons()
+        return selectedPokemons.size >= limit.last
     }
 
     private fun setupRecyclerViewRegions() {

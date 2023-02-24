@@ -33,6 +33,9 @@ class HomeViewModel @Inject constructor(
     private val pokemons = mutableListOf<PokemonResponse>()
     private var currectRegionSelected:String = ""
 
+    private var limitPokemons = 3..6
+    private var pokemonsAvailableSelected = mutableListOf<PokemonResponse>()
+
     private var offset = 0
 
     init {
@@ -100,7 +103,23 @@ class HomeViewModel @Inject constructor(
         currectRegionSelected = regions.first().name
     }
 
-    private fun getCurrentIdRegion() = regions.first { it.name == currectRegionSelected }.url.removeSuffix("/").split("/").last().toIntOrZero()
+    fun addPokemonSelected(pokemon: PokemonResponse) {
+        if(pokemonsAvailableSelected.size < limitPokemons.last) {
+            pokemonsAvailableSelected.add(pokemon)
+        }
+    }
+
+    fun removePokemonSelected(pokemon: PokemonResponse) {
+        pokemonsAvailableSelected.remove(pokemon)
+    }
+
+    fun clearPokemonsSelected() {
+        pokemonsAvailableSelected.clear()
+    }
+
+    fun getPokemonsSelected() = pokemonsAvailableSelected
+
+    fun getLimitPokemons() = limitPokemons
 
     fun updateRegionSelected(region: Region) {
         regions.forEach {

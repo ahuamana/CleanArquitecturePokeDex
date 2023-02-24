@@ -6,8 +6,11 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.paparazziteam.cleanarquitecturepokemon.domain.PokemonResponse
+import com.paparazziteam.cleanarquitecturepokemon.feature.home.R
 import com.paparazziteam.cleanarquitecturepokemon.feature.home.databinding.ItemPokemonBinding
 import com.paparazziteam.cleanarquitecturepokemon.shared.utils.loadImage
+import com.paparazziteam.cleanarquitecturepokemon.shared.utils.removeCardBackgroundColor
+import com.paparazziteam.cleanarquitecturepokemon.shared.utils.setCardBackgroundColorWithAlpha
 import com.paparazziteam.cleanarquitecturepokemon.shared.utils.toShortDescription
 
 class PokemonAdapter : ListAdapter<PokemonResponse, RecyclerView.ViewHolder>(DiffCallback) {
@@ -31,6 +34,12 @@ class PokemonAdapter : ListAdapter<PokemonResponse, RecyclerView.ViewHolder>(Dif
         onItemClick = listener
     }
 
+    fun selectItem(position: Int) {
+        val item = getItem(position)
+        item.isSelected = !item.isSelected
+        notifyItemChanged(position)
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return PokemonViewHolder(
             ItemPokemonBinding.inflate(
@@ -52,6 +61,12 @@ class PokemonAdapter : ListAdapter<PokemonResponse, RecyclerView.ViewHolder>(Dif
                 itemView.setOnClickListener {
                     onItemClick?.invoke(item, position)
                 }
+            }
+
+            if(item.isSelected) {
+                binding.root.setCardBackgroundColorWithAlpha(com.paparazziteam.cleanarquitecturepokemon.shared.R.color.colorSecondary, 0.5f)
+            } else {
+                binding.root.removeCardBackgroundColor()
             }
         }
     }

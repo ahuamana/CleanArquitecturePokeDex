@@ -65,7 +65,8 @@ data class PokemonResponse(
     val url: String,
     val description: String = "",
     val tipo: List<String> = listOf(),
-    val order:Int = 0
+    val order:Int = 0,
+    var isSelected:Boolean = false
 )
 
 //GraphQl
