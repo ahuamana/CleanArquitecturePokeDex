@@ -73,6 +73,7 @@ data class PokemonTeam(
     val name: String,
     val pokemon: List<PokemonResponse>,
     val createdby: String = "",
+    val regionName: String = "",
 )
 
 //GraphQl

@@ -147,7 +147,8 @@ class HomeViewModel @Inject constructor(
         val pokemonTeam = PokemonTeam(
             name = name,
             pokemon = getPokemonsSelected(),
-            createdby = email
+            createdby = email,
+            regionName = currectRegionSelected
         )
         viewModelScope.launch {
             createTeamUseCase.invoke(pokemonTeam)
