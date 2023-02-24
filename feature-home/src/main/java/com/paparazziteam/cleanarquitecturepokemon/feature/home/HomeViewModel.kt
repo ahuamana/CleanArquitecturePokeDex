@@ -29,6 +29,9 @@ class HomeViewModel @Inject constructor(
     private val _eventsPokemons = MutableLiveData<Event<PokemonsState>>()
     val eventsPokemons:LiveData<Event<PokemonsState>> get() = _eventsPokemons
 
+    private val _error = MutableLiveData<String>()
+    val error:LiveData<String> get() = _error
+
     private val regions = mutableListOf<Region>()
     private val pokemons = mutableListOf<PokemonResponse>()
     private var currectRegionSelected:String = ""
@@ -85,6 +88,7 @@ class HomeViewModel @Inject constructor(
     fun clearOffset() {
         offset = 0
         clearPokemons()
+        clearPokemonsSelected()
     }
 
     fun clearPokemons() {
@@ -127,6 +131,20 @@ class HomeViewModel @Inject constructor(
         }
         currectRegionSelected = region.name
         _eventsRegions.value = Event(RegionsState.Success(regions))
+    }
+
+    fun createTeam(){
+        if(pokemonsAvailableSelected.size < limitPokemons.first) {
+            _error.value = "You must select ${limitPokemons.first} pokemons at least"
+            return
+        }
+
+        if(pokemonsAvailableSelected.size > limitPokemons.last) {
+            _error.value = "You must select ${limitPokemons.last} pokemons at most"
+            return
+        }
+
+        //TODO: create team in firebase realtime database
     }
 
     sealed class RegionsState {

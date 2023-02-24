@@ -35,9 +35,13 @@ class PokemonAdapter : ListAdapter<PokemonResponse, RecyclerView.ViewHolder>(Dif
     }
 
     fun selectItem(position: Int) {
-        val item = getItem(position)
-        item.isSelected = !item.isSelected
-        notifyItemChanged(position)
+        try {
+            val item = getItem(position)
+            item.isSelected = !item.isSelected
+            notifyItemChanged(position)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {

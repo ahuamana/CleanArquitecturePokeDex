@@ -1,6 +1,7 @@
 package com.paparazziteam.cleanarquitecturepokemon.feature.home
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
@@ -27,7 +28,14 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
         setContentView(binding.root)
         setupRecyclerViewRegions()
         setupRecyclerViewPokemons()
+        listeners()
         observers()
+    }
+
+    private fun listeners() {
+        binding.fabCreateTeam.setOnClickListener {
+            viewModel.createTeam()
+        }
     }
 
     private fun setupRecyclerViewPokemons() {
@@ -99,7 +107,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
 
         mAdapterRegion.onItemClick { region, position ->
             viewModel.updateRegionSelected(region)
-            viewModel.clearOffset()
+            viewModel.clearOffset() // also, clear pokemons selected
             viewModel.getPokemonsByRegion(region.name)
         }
     }
@@ -107,7 +115,13 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
     private fun observers() {
         viewModel.eventsRegions.observe(this, Observer(::handleEvents))
         viewModel.eventsPokemons.observe(this, Observer(::handleEventsPokemons))
+        viewModel.error.observe(this, Observer(::handleError))
     }
+
+    private fun handleError(s: String?) {
+        Toast.makeText(this, s, Toast.LENGTH_SHORT).show()
+    }
+
 
     private fun handleEventsPokemons(event: Event<HomeViewModel.PokemonsState>?) {
         event?.getContentIfNotHandled()?.let {
