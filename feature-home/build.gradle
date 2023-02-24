@@ -6,6 +6,8 @@ plugins {
 }
 
 android {
+
+
     namespace 'com.paparazziteam.cleanarquitecturepokemon.feature.home'
     compileSdk rootProject.ext.compileSdkVersion
 
@@ -43,6 +45,7 @@ dependencies {
     implementation project(':shared')
     implementation project(':domain')
     implementation project(':usecases')
+    implementation project(':data')
 
     implementation coreKtxLib
     implementation materialLib
@@ -63,5 +66,8 @@ dependencies {
 
     // viewModelExtensionsLib
     implementation viewModelExtensionForFragmentLib
+
+
+
 
 }

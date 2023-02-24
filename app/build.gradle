@@ -9,6 +9,7 @@ plugins {
 }
 
 android {
+
     namespace 'com.paparazziteam.cleanarquitecturepokemon'
     compileSdk rootProject.ext.compileSdkVersion
 
@@ -38,6 +39,9 @@ android {
 
     buildFeatures {
         viewBinding true
+    }
+    kapt {
+        correctErrorTypes true
     }
 }
 

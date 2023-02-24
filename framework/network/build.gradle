@@ -5,6 +5,7 @@ plugins {
     id 'kotlin-kapt'
     id 'org.jetbrains.kotlin.plugin.serialization'
     id 'dagger.hilt.android.plugin'
+    id 'com.apollographql.apollo3' version '3.7.3'
 }
 
 android {
@@ -33,6 +34,10 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    apollo {
+        packageName.set("com.paparazziteam.cleanarquitecturepokemon.framework.network")
+    }
 }
 
 dependencies {
@@ -52,5 +57,8 @@ dependencies {
 
     //Json
     implementation jsonNativeLib
+
+    //GraphQl
+    implementation graphQlLib
 
 }

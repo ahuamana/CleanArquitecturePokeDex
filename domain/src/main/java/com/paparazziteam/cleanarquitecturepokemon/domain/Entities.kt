@@ -52,3 +52,22 @@ data class Location(
     @SerialName("url")
     val url: String
 )
+
+@Serializable
+data class PokemonLocationResponse(
+    @SerialName("pokemon_encounters")
+    val pokemon_encounters: List<PokemonResponse>
+)
+
+@Serializable
+data class PokemonResponse(
+    val name: String,
+    val url: String,
+    val description: String = "",
+    val tipo: List<String> = listOf(),
+    val order:Int = 0
+)
+
+//GraphQl
+
+

@@ -15,6 +15,7 @@ ext{
     def retrofitVersion = "2.9.0"
     def gsonConverterVersion = "2.9.0"
     def gsonSerializableVersion = "2.10"
+    def apolographqlVersion = "3.7.3"
 
     // Hilt
     hiltAndroid = "com.google.dagger:hilt-android:$hiltVersion"
@@ -70,4 +71,12 @@ ext{
 
     //ViewModel Extensions for Activities
     viewModelExtensionForActivityLib = "androidx.activity:activity-ktx:1.5.4"
+
+    //GraphQL
+    graphQlLib = "com.apollographql.apollo3:apollo-runtime:$apolographqlVersion"
+
+    //Glide
+    glideLibrary = "com.github.bumptech.glide:glide:$glideVer"
+    glideCompilerLibrary = "com.github.bumptech.glide:compiler:$glideVer"
+
 }

@@ -5,6 +5,9 @@ import android.view.View
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
+import com.bumptech.glide.Glide
+import com.google.android.material.imageview.ShapeableImageView
+import com.paparazziteam.cleanarquitecturepokemon.shared.R
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -29,3 +32,29 @@ fun setBackgroundResourceWithTint(view: View, @DrawableRes drawableRes: Int, @Co
     drawable?.setColorFilter(ContextCompat.getColor(view.context, colorRes), PorterDuff.Mode.SRC_ATOP)
     view.background = drawable
 }
+
+
+fun String.toIntOrZero(): Int {
+    return try {
+        this.toInt()
+    } catch (e: Exception) {
+        0
+    }
+}
+
+fun ShapeableImageView.loadImage(url: String?) {
+    Glide.with(this)
+        .load(url)
+        .placeholder(R.drawable.corner_shimmer_style)
+        .error(R.drawable.corner_shimmer_style)
+        .into(this)
+}
+
+fun String.toShortDescription(): String {
+    return if (this.length > 20) {
+        this.substring(0, 20) + "..."
+    } else {
+        this
+    }
+}
+

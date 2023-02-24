@@ -31,5 +31,4 @@ object DatabaseModule {
         //.addCallAdapterFactory(RootCallAdapterFactory(rootBear))
         .build()
 
-
 }

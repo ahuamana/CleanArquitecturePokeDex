@@ -10,4 +10,6 @@ class PokemonRemoteDataSource @Inject constructor(
 
     suspend fun getLocationsByRegion(regionId:Int) = getResult { pokemonService.getLocationsByRegion(regionId) }
 
+    suspend fun getPokemonsByLocation(locationId:Int) = getResult { pokemonService.getPokemonsByLocation(locationId) }
+
 }

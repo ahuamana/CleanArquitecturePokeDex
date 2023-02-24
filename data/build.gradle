@@ -3,6 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'dagger.hilt.android.plugin'
     id 'kotlin-kapt'
+    id 'com.apollographql.apollo3' version '3.7.3'
 }
 
 android {
@@ -31,6 +32,15 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    apollo {
+        packageName.set("com.paparazziteam.cleanarquitecturepokemon.data")
+    }
+
+    kapt {
+        correctErrorTypes true
+        generateStubs = true
+    }
 }
 
 dependencies {
@@ -54,4 +64,7 @@ dependencies {
     //Retrofit
     implementation retrofitLib
     implementation gsonConverterLib
+
+    //GraphQl
+    implementation graphQlLib
 }
