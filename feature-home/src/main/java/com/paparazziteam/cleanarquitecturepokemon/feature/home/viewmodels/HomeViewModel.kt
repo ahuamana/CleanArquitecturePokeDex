@@ -133,6 +133,13 @@ class HomeViewModel @Inject constructor(
         _eventsRegions.value = Event(RegionsState.Success(regions))
     }
 
+    fun deselectAllPokemons() {
+        pokemons.filter { it.isSelected }.forEach {
+            it.isSelected = false
+        }
+        _eventsPokemons.value = Event(PokemonsState.Success(pokemons))
+    }
+
 
     fun isAvailableToCreateTeam(): Boolean {
         if(pokemonsAvailableSelected.size < limitPokemons.first) {
@@ -179,6 +186,7 @@ class HomeViewModel @Inject constructor(
     private fun handleSuccessCreateTeam(response: GeneralResponse) {
         _eventsCreateTeam.value = Event(CreateTeamState.HideLoading)
         _eventsCreateTeam.value = Event(CreateTeamState.Success(response.message))
+        deselectAllPokemons()
     }
 
     sealed class CreateTeamState{

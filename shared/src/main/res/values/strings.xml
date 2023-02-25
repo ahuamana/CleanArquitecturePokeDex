@@ -8,4 +8,5 @@
     <string name="share">Share</string>
     <string name="add_new_pokemon">add new pokemon</string>
     <string name="delete_team">delete team</string>
+    <string name="copy">copy</string>
 </resources>
