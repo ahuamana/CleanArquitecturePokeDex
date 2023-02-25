@@ -194,12 +194,12 @@
             android:id="@+id/cardViewShare"
             android:layout_width="60dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
             app:cardBackgroundColor="@color/colorPrimary"
             app:cardCornerRadius="8dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintLeft_toRightOf="@+id/cardViewDelete"
             app:layout_constraintStart_toStartOf="@+id/tvTokenDescription"
-            app:layout_constraintTop_toTopOf="@+id/tvTokenDescription">
+            app:layout_constraintTop_toBottomOf="@+id/tvTokenDescription">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"

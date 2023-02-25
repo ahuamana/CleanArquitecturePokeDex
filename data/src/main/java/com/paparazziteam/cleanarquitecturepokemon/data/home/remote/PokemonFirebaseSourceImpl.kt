@@ -78,6 +78,59 @@ class PokemonFirebaseSourceImpl @Inject constructor(
         return result
     }
 
+    override suspend fun updatePokemonTeam(
+        teamId: String,
+        pokemon: PokemonResponse
+    ): LiveData<Resource<GeneralResponse>> {
+
+        val result = MutableLiveData<Resource<GeneralResponse>>()
+        result.value = Resource.loading(null)
+
+        val teamRef = database.child("teams").child(teamId)
+        val query = teamRef.child("pokemon").orderByChild("name").equalTo(pokemon.name)
+        query.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                snapshot.children.forEach { child ->
+                    val childPokemon = child.getValue(PokemonResponse::class.java)
+                    if (childPokemon?.name == pokemon.name) {
+                        child.ref.setValue(pokemon)
+                    }
+                }
+                result.value = Resource.success(GeneralResponse(true,"Team updated successfully"))
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                result.value = Resource.error(error.message, null)
+            }
+        })
+        return result
+    }
+
+    override suspend fun getPokemonTeamByToken(token: String): LiveData<Resource<PokemonTeam>> {
+        Resource.loading(null) // event loading
+        val teamRef = database.child("teams")
+        val query = teamRef.orderByChild("metaData/token").equalTo(token)
+        return object : LiveData<Resource<PokemonTeam>>() {
+            override fun onActive() {
+                super.onActive()
+                query.addValueEventListener(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        val team = snapshot.children.first().getValue(PokemonTeam::class.java)
+                        value = if (team != null) {
+                            Resource.success(team)
+                        } else {
+                            Resource.error("Invalid team data")
+                        }
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        value = Resource.error(error.message, null)
+                    }
+                })
+            }
+        }
+    }
+
     override suspend fun addPokemonToTeam(teamId: String, pokemon: PokemonResponse) {
         val teamRef = database.child("teams").child(teamId)
         teamRef.child("pokemon").push().setValue(pokemon).await()
