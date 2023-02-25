@@ -61,20 +61,25 @@ data class PokemonLocationResponse(
 
 @Serializable
 data class PokemonResponse(
-    val name: String,
-    val url: String,
-    val description: String = "",
-    val tipo: List<String> = listOf(),
-    val order:Int = 0,
+    var name: String,
+    var url: String,
+    var description: String = "",
+    var tipo: List<String> = listOf(),
+    var order:Int = 0,
     var isSelected:Boolean = false
-)
+){
+    constructor() : this("", "", "", listOf(), 0, false)
+}
 
 data class PokemonTeam(
-    val name: String,
-    val pokemon: List<PokemonResponse>,
-    val createdby: String = "",
-    val regionName: String = "",
-)
+    var id: String = "",
+    var userId: String = "",
+    var name: String,
+    var pokemon: List<PokemonResponse>,
+    var regionName: String = "",
+) {
+    constructor() : this("","", "", listOf())
+}
 
 //GraphQl
 

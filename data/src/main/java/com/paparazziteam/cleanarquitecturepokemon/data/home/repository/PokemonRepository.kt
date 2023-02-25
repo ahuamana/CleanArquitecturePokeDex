@@ -27,4 +27,6 @@ class PokemonRepository @Inject constructor(
     suspend fun getPokemonsByRegion(region:String, limit:Int, offSet:Int) = pokemonGraphQlDataSource.getPokemonsByRegion(region, limit, offSet)
 
     suspend fun createTeam(pokemonTeam: PokemonTeam) = pokemonFirebaseSource.createTeam(pokemonTeam)
+
+    suspend fun getTeamsByUser(userId: String) = pokemonFirebaseSource.getTeamsByUser(userId)
 }
