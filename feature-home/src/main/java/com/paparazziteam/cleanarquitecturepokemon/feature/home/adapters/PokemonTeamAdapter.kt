@@ -24,6 +24,11 @@ class PokemonTeamAdapter: ListAdapter<PokemonTeam, RecyclerView.ViewHolder>(Poke
         }
     }
 
+    private var onClickListener: ((PokemonTeam) -> Unit)? = null
+    fun setOnClickListener(listener: (PokemonTeam) -> Unit) {
+        onClickListener = listener
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return PokemonTeamViewHolder(
             ItemPokemonTeamBinding.inflate(
@@ -51,8 +56,11 @@ class PokemonTeamAdapter: ListAdapter<PokemonTeam, RecyclerView.ViewHolder>(Poke
                 }
                 mAdapter.submitList(pokemonTeam.pokemon)
                 mAdapter.notifyDataSetChanged()
-           }
 
+                mAdapter.onItemClick { pokemonResponse, position ->
+                    onClickListener?.invoke(pokemonTeam)
+                }
+           }
         }
     }
 }

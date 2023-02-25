@@ -60,6 +60,4 @@ dependencies {
     //Glide
     implementation glideLibrary
     kapt glideCompilerLibrary
-
-    implementation swiperLib
 }

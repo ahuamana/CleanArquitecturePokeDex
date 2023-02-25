@@ -4,8 +4,11 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.paparazziteam.cleanarquitecturepokemon.domain.PokemonTeam
+import com.paparazziteam.cleanarquitecturepokemon.domain.toParcelable
 import com.paparazziteam.cleanarquitecturepokemon.feature.home.adapters.PokemonTeamAdapter
 import com.paparazziteam.cleanarquitecturepokemon.feature.home.databinding.ActivityPokemonTeamBinding
+import com.paparazziteam.cleanarquitecturepokemon.feature.home.dialogs.BottomSheetDialogFragment
 import com.paparazziteam.cleanarquitecturepokemon.feature.home.viewmodels.PokemonTeamViewModel
 import com.paparazziteam.cleanarquitecturepokemon.shared.base.BaseActivity
 import com.paparazziteam.cleanarquitecturepokemon.shared.components.VerticalSpacingItemDecoration
@@ -37,6 +40,15 @@ class PokemonTeamActivity : BaseActivity<ActivityPokemonTeamBinding>(ActivityPok
         viewModel.events.observe(this, Observer(::handleEvents))
     }
 
+    private fun createBottomSheetDialog(team: PokemonTeam) {
+        val bunble = Bundle()
+        bunble.putParcelable("team", team.toParcelable())
+
+        val bottomSheetDialog = BottomSheetDialogFragment()
+        bottomSheetDialog.arguments = bunble
+        bottomSheetDialog.show(supportFragmentManager, "BottomSheetDialogFragment")
+    }
+
     private fun handleEvents(event: Event<PokemonTeamViewModel.PokemonTeamEvent>?) {
         event?.getContentIfNotHandled()?.let {
             when (it) {
@@ -63,6 +75,10 @@ class PokemonTeamActivity : BaseActivity<ActivityPokemonTeamBinding>(ActivityPok
             adapter = mAdapter
             layoutManager = LinearLayoutManager(this@PokemonTeamActivity, LinearLayoutManager.VERTICAL, false)
             addItemDecoration(VerticalSpacingItemDecoration(20,true))
+        }
+
+        mAdapter.setOnClickListener {
+            createBottomSheetDialog(it)
         }
     }
 

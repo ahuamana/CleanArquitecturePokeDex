@@ -5,6 +5,8 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.drawable.ColorDrawable
+import android.os.Bundle
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.Window
@@ -107,5 +109,9 @@ fun Context.createTeamDialog(textDescription: String?,
         }
         dialog.show()
     }
+}
+
+inline fun <reified T : Parcelable> Bundle.getParcelableObject(key: String): T? {
+    return if (this.containsKey(key)) this.get(key) as T else null
 }
 

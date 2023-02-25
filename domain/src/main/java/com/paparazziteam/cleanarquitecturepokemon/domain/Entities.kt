@@ -1,5 +1,7 @@
 package com.paparazziteam.cleanarquitecturepokemon.domain
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -77,11 +79,85 @@ data class PokemonTeam(
     var name: String,
     var pokemon: List<PokemonResponse>,
     var regionName: String = "",
-    var token: String = ""
+    var metaData: MetaData = MetaData()
 ) {
     constructor() : this("","", "", listOf())
 }
 
-//GraphQl
+data class MetaData(
+    var token: String = ""
+) {
+    constructor() : this("")
+}
+
+@Parcelize
+data class PokemonTeamParcelable(
+    var id: String = "",
+    var userId: String = "",
+    var name: String,
+    var pokemon: List<PokemonResponseParcelable>,
+    var regionName: String = "",
+    val metaData: MetadataParcelable = MetadataParcelable()
+):Parcelable
+
+@Parcelize
+data class PokemonResponseParcelable(
+    var name: String,
+    var url: String,
+    var description: String = "",
+    var tipo: List<String> = listOf(),
+    var order:Int = 0,
+    var isSelected:Boolean = false
+):Parcelable
+
+@Parcelize
+data class MetadataParcelable(
+    var token: String = ""
+):Parcelable
+
+
+fun PokemonTeam.toParcelable() = PokemonTeamParcelable(
+    id = this.id,
+    userId = this.userId,
+    name = this.name,
+    pokemon = this.pokemon.map { it.toParcelable() },
+    regionName = this.regionName,
+    metaData = this.metaData.toParcelable()
+)
+
+fun PokemonTeamParcelable.toDomain() = PokemonTeam(
+    id = this.id,
+    userId = this.userId,
+    name = this.name,
+    pokemon = this.pokemon.map { it.toDomain() },
+    regionName = this.regionName,
+    metaData = this.metaData.toDomain()
+)
+
+fun PokemonResponse.toParcelable() = PokemonResponseParcelable(
+    name = this.name,
+    url = this.url,
+    description = this.description,
+    tipo = this.tipo,
+    order = this.order,
+    isSelected = this.isSelected
+)
+
+fun PokemonResponseParcelable.toDomain() = PokemonResponse(
+    name = this.name,
+    url = this.url,
+    description = this.description,
+    tipo = this.tipo,
+    order = this.order,
+    isSelected = this.isSelected
+)
+
+fun MetadataParcelable.toDomain() = MetaData(
+    token = this.token
+)
+
+fun MetaData.toParcelable() = MetadataParcelable(
+    token = this.token
+)
 
 

@@ -52,30 +52,27 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tvEdit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/uni_neue_bold"
                     android:gravity="center"
+                    android:textColor="@color/colorWhite"
                     android:textSize="16dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/ivEdit"
-                    app:layout_constraintStart_toStartOf="@+id/ivEdit"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/ivEdit"
-                    tools:text="@string/edit" />
+                    android:text="@string/edit" />
             </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-
-
 
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardViewDelete"
-            android:layout_width="wrap_content"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
             app:cardCornerRadius="8dp"
             android:layout_marginStart="8dp"
@@ -103,11 +100,12 @@
                     android:fontFamily="@font/uni_neue_bold"
                     android:gravity="center"
                     android:textSize="16dp"
+                    android:textColor="@color/colorWhite"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/ivDelete"
                     app:layout_constraintStart_toStartOf="@+id/ivDelete"
                     app:layout_constraintTop_toBottomOf="@+id/ivDelete"
-                    tools:text="@string/delete" />
+                    android:text="@string/delete" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -118,7 +116,7 @@
         <!--Share-->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardViewShare"
-            android:layout_width="wrap_content"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
             app:cardCornerRadius="8dp"
             android:layout_marginStart="8dp"
@@ -146,11 +144,12 @@
                     android:fontFamily="@font/uni_neue_bold"
                     android:gravity="center"
                     android:textSize="16dp"
+                    android:textColor="@color/colorWhite"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/ivShare"
                     app:layout_constraintStart_toStartOf="@+id/ivShare"
                     app:layout_constraintTop_toBottomOf="@+id/ivShare"
-                    tools:text="@string/share" />
+                    android:text="@string/share" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
 

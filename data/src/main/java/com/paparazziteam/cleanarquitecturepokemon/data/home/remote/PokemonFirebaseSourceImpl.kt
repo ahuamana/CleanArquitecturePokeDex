@@ -22,6 +22,10 @@ class PokemonFirebaseSourceImpl @Inject constructor(
         database.child("teams").child(teamId).setValue(pokemonTeam).await()
     }
 
+    override suspend fun deleteTeamById(teamId: String) {
+        database.child("teams").child(teamId).removeValue().await()
+    }
+
     override suspend fun addPokemonToTeam(teamId: String, pokemon: PokemonResponse) {
         val teamRef = database.child("teams").child(teamId)
         teamRef.child("pokemon").push().setValue(pokemon).await()
