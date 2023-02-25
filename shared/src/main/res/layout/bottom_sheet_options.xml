@@ -31,19 +31,95 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/pokemon_card"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeColor="@color/colorSecondary"
+            app:strokeWidth="1dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/pokemon_image"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/pokeapi"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/pokemon_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/uni_neue_bold"
+                    android:gravity="center"
+                    app:layout_constraintEnd_toEndOf="@+id/pokemon_image"
+                    app:layout_constraintStart_toStartOf="@+id/pokemon_image"
+                    app:layout_constraintTop_toBottomOf="@+id/pokemon_image"
+                    tools:text="Bulbasaur" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/pokemon_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/uni_neue_bold"
+                    android:gravity="center"
+                    app:layout_constraintEnd_toEndOf="@+id/pokemon_name"
+                    app:layout_constraintStart_toStartOf="@+id/pokemon_name"
+                    app:layout_constraintTop_toBottomOf="@+id/pokemon_name"
+                    tools:text="001" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/pokemon_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/uni_neue_bold"
+                    android:gravity="center"
+                    app:layout_constraintEnd_toEndOf="@+id/pokemon_number"
+                    app:layout_constraintStart_toStartOf="@+id/pokemon_number"
+                    app:layout_constraintTop_toBottomOf="@+id/pokemon_number"
+                    tools:text="Grass" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/pokemon_description_short"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/uni_neue_regular"
+                    android:gravity="center"
+                    app:layout_constraintEnd_toEndOf="@+id/pokemon_type"
+                    app:layout_constraintStart_toStartOf="@+id/pokemon_type"
+                    app:layout_constraintTop_toBottomOf="@+id/pokemon_type"
+                    tools:text="Bulbasaur can be seen napping in bright sunlight. There is a ..." />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardViewEdit"
             android:layout_width="60dp"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="8dp"
+            android:layout_marginTop="8dp"
             app:cardBackgroundColor="@color/colorPrimary"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:cardCornerRadius="8dp"
+            app:layout_constraintStart_toStartOf="@+id/pokemon_card"
+            app:layout_constraintTop_toBottomOf="@+id/pokemon_card">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:layout_margin="8dp"
-                android:layout_height="match_parent">
+                android:layout_margin="8dp">
+
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/ivEdit"
                     android:layout_width="25dp"
@@ -59,13 +135,13 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/uni_neue_bold"
                     android:gravity="center"
+                    android:text="@string/edit"
                     android:textColor="@color/colorWhite"
                     android:textSize="16dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/ivEdit"
-                    android:text="@string/edit" />
+                    app:layout_constraintTop_toBottomOf="@+id/ivEdit" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </com.google.android.material.card.MaterialCardView>
@@ -73,18 +149,19 @@
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardViewDelete"
             android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="8dp"
             android:layout_marginStart="8dp"
+            android:layout_height="wrap_content"
             app:cardBackgroundColor="@color/colorPrimary"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toRightOf="@+id/cardViewEdit">
+            app:cardCornerRadius="8dp"
+            app:layout_constraintLeft_toRightOf="@+id/cardViewEdit"
+            app:layout_constraintTop_toTopOf="@+id/cardViewEdit">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:layout_margin="8dp"
-                android:layout_height="match_parent">
+                android:layout_margin="8dp">
+
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/ivDelete"
                     android:layout_width="25dp"
@@ -93,22 +170,21 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tvDelete"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/uni_neue_bold"
                     android:gravity="center"
-                    android:textSize="16dp"
+                    android:text="@string/delete"
                     android:textColor="@color/colorWhite"
+                    android:textSize="16dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/ivDelete"
                     app:layout_constraintStart_toStartOf="@+id/ivDelete"
-                    app:layout_constraintTop_toBottomOf="@+id/ivDelete"
-                    android:text="@string/delete" />
+                    app:layout_constraintTop_toBottomOf="@+id/ivDelete" />
             </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 
 
         </com.google.android.material.card.MaterialCardView>
@@ -117,18 +193,19 @@
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardViewShare"
             android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="8dp"
             android:layout_marginStart="8dp"
+            android:layout_height="wrap_content"
             app:cardBackgroundColor="@color/colorPrimary"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toRightOf="@+id/cardViewDelete">
+            app:cardCornerRadius="8dp"
+            app:layout_constraintLeft_toRightOf="@+id/cardViewDelete"
+            app:layout_constraintTop_toTopOf="@+id/cardViewDelete">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:layout_margin="8dp"
-                android:layout_height="match_parent">
+                android:layout_margin="8dp">
+
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/ivShare"
                     android:layout_width="25dp"
@@ -137,19 +214,20 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tvShare"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/uni_neue_bold"
                     android:gravity="center"
-                    android:textSize="16dp"
+                    android:text="@string/share"
                     android:textColor="@color/colorWhite"
+                    android:textSize="16dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/ivShare"
                     app:layout_constraintStart_toStartOf="@+id/ivShare"
-                    app:layout_constraintTop_toBottomOf="@+id/ivShare"
-                    android:text="@string/share" />
+                    app:layout_constraintTop_toBottomOf="@+id/ivShare" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
 

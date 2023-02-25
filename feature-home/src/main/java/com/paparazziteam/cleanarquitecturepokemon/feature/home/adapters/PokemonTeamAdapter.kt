@@ -58,7 +58,11 @@ class PokemonTeamAdapter: ListAdapter<PokemonTeam, RecyclerView.ViewHolder>(Poke
                 mAdapter.notifyDataSetChanged()
 
                 mAdapter.onItemClick { pokemonResponse, position ->
-                    onClickListener?.invoke(pokemonTeam)
+                    var copy = pokemonTeam.copy(pokemon = pokemonTeam.pokemon.map { pokemon ->
+                        pokemon.isSelected = pokemon.name == pokemonResponse.name
+                        pokemon
+                    })
+                    onClickListener?.invoke(copy)
                 }
            }
         }
