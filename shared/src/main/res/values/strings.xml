@@ -3,4 +3,7 @@
     <string name="login_google">Login with Google</string>
     <string name="choose_team_name">Choose the team name</string>
     <string name="enter_team_name">Enter team name</string>
+    <string name="edit">Edit</string>
+    <string name="delete">delete</string>
+    <string name="share">Share</string>
 </resources>

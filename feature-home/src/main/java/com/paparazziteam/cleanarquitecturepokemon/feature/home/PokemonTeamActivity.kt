@@ -1,6 +1,5 @@
 package com.paparazziteam.cleanarquitecturepokemon.feature.home
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
@@ -9,10 +8,10 @@ import com.paparazziteam.cleanarquitecturepokemon.feature.home.adapters.PokemonT
 import com.paparazziteam.cleanarquitecturepokemon.feature.home.databinding.ActivityPokemonTeamBinding
 import com.paparazziteam.cleanarquitecturepokemon.feature.home.viewmodels.PokemonTeamViewModel
 import com.paparazziteam.cleanarquitecturepokemon.shared.base.BaseActivity
-import com.paparazziteam.cleanarquitecturepokemon.shared.components.HorizontalSpacingItemDecoration
 import com.paparazziteam.cleanarquitecturepokemon.shared.components.VerticalSpacingItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
 import pe.com.tarjetaw.android.client.shared.network.Event
+
 
 @AndroidEntryPoint
 class PokemonTeamActivity : BaseActivity<ActivityPokemonTeamBinding>(ActivityPokemonTeamBinding::inflate) {
@@ -66,6 +65,8 @@ class PokemonTeamActivity : BaseActivity<ActivityPokemonTeamBinding>(ActivityPok
             addItemDecoration(VerticalSpacingItemDecoration(20,true))
         }
     }
+
+
 
     private fun extras() {
         userId = intent.getStringExtra("email") ?: ""

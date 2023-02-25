@@ -20,6 +20,7 @@ import com.paparazziteam.cleanarquitecturepokemon.shared.databinding.CustomDialo
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import java.util.*
 import kotlin.math.roundToInt
 
 inline fun <reified T : Any> toJson(value : T) = Json{
@@ -80,6 +81,11 @@ fun MaterialCardView?.setCardBackgroundColorWithAlpha(@ColorRes colorRes: Int, a
 fun MaterialCardView?.removeCardBackgroundColor() {
     this?.setCardBackgroundColor(Color.TRANSPARENT)
 }
+
+fun generateToken(): String {
+    return UUID.randomUUID().toString().substring(0, 8)
+}
+
 
 fun Context.createTeamDialog(textDescription: String?,
                              @DrawableRes icon: Int = R.drawable.pokeapi,

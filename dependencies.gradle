@@ -82,5 +82,7 @@ ext{
     //Firebase Realtime Database
     firebaseRealtimeDatabaseLib = "com.google.firebase:firebase-database-ktx:20.1.0"
 
+    //Swiper
+    swiperLib = "it.xabaras.android:recyclerview-swipedecorator:1.4"
 
 }

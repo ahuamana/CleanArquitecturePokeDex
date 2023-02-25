@@ -77,6 +77,7 @@ data class PokemonTeam(
     var name: String,
     var pokemon: List<PokemonResponse>,
     var regionName: String = "",
+    var token: String = ""
 ) {
     constructor() : this("","", "", listOf())
 }

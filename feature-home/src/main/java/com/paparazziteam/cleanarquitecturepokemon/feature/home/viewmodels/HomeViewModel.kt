@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.paparazziteam.cleanarquitecturepokemon.domain.*
+import com.paparazziteam.cleanarquitecturepokemon.shared.utils.generateToken
 import com.paparazziteam.cleanarquitecturepokemon.usecases.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -148,7 +149,8 @@ class HomeViewModel @Inject constructor(
             name = name,
             pokemon = getPokemonsSelected(),
             userId = email,
-            regionName = currectRegionSelected
+            regionName = currectRegionSelected,
+            token = generateToken()
         )
         viewModelScope.launch {
             createTeamUseCase.invoke(pokemonTeam)
