@@ -5,6 +5,11 @@ import kotlinx.android.parcel.Parcelize
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+
+data class GeneralResponse(
+    val status: Boolean,
+    val message: String
+)
 @Serializable
 data class RegionResponse(
     @SerialName("count")

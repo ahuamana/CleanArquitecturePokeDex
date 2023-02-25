@@ -231,13 +231,53 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
 
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardViewDeleteTeam"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/colorPrimary"
+            app:cardCornerRadius="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/cardViewShare">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_margin="8dp">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/ivDeleteTeam"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/ic_delete"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvDeleteTeam"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/uni_neue_bold"
+                    android:gravity="center"
+                    android:text="@string/delete_team"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/ivDeleteTeam"
+                    app:layout_constraintStart_toStartOf="@+id/ivDeleteTeam"
+                    app:layout_constraintTop_toBottomOf="@+id/ivDeleteTeam" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvTitleToken"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Token: "
-
             android:layout_marginTop="8dp"
             android:fontFamily="@font/uni_neue_bold"
             app:layout_constraintStart_toStartOf="parent"

@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.paparazziteam.cleanarquitecturepokemon.domain.PokemonResponseParcelable
 import com.paparazziteam.cleanarquitecturepokemon.domain.PokemonTeamParcelable
@@ -18,7 +19,9 @@ import com.paparazziteam.cleanarquitecturepokemon.shared.databinding.BottomSheet
 import com.paparazziteam.cleanarquitecturepokemon.shared.utils.copyToClipboard
 import com.paparazziteam.cleanarquitecturepokemon.shared.utils.getParcelableObject
 import com.paparazziteam.cleanarquitecturepokemon.shared.utils.loadImage
+import com.paparazziteam.cleanarquitecturepokemon.shared.utils.preventDoubleLongClick
 import dagger.hilt.android.AndroidEntryPoint
+import pe.com.tarjetaw.android.client.shared.network.Event
 
 @AndroidEntryPoint
 class BottomSheetDialogFragment : BottomSheetDialogFragment() {
@@ -50,8 +53,29 @@ class BottomSheetDialogFragment : BottomSheetDialogFragment() {
 
         setupExtras()
         listeners()
+        observers()
 
         return binding.root
+    }
+
+    private fun observers() {
+        viewModel.eventsDeleteTeamByUser.observe(viewLifecycleOwner, Observer(::eventsDeleteTeamByUser))
+    }
+
+    private fun eventsDeleteTeamByUser(event: Event<BottomSheetDialogFragmentViewModel.DeleteTeamByUserState>?) {
+        event?.getContentIfNotHandled()?.let {
+            when(it) {
+                is BottomSheetDialogFragmentViewModel.DeleteTeamByUserState.Success ->it.run {
+                    Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+                    dismiss()
+                }
+                is BottomSheetDialogFragmentViewModel.DeleteTeamByUserState.HideLoading -> {}
+                is BottomSheetDialogFragmentViewModel.DeleteTeamByUserState.Error -> it.run{
+                    Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+                }
+                BottomSheetDialogFragmentViewModel.DeleteTeamByUserState.ShowLoading -> {}
+            }
+        }
     }
 
     private fun listeners() {
@@ -61,12 +85,20 @@ class BottomSheetDialogFragment : BottomSheetDialogFragment() {
         }
 
         binding.cardViewDelete.setOnClickListener {
+            it.preventDoubleLongClick()
             //remove pokemon from team
             pokemonSelected?.toDomain()
                 ?.let { pokemon -> pokemonTeamParcelable?.id?.let { pokemonTeamId ->
                     viewModel.removePokemonFromTeam(pokemonTeamId, pokemon) }
                 }
             dismiss()
+        }
+
+        binding.cardViewDeleteTeam.setOnClickListener {
+            it.preventDoubleLongClick()
+            pokemonTeamParcelable?.id?.let { pokemonTeamId ->
+                viewModel.deleteTeamByUser(pokemonTeamId)
+            }
         }
     }
 

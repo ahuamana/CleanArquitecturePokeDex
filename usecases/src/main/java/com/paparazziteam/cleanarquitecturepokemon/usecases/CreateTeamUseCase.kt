@@ -8,7 +8,7 @@ import javax.inject.Inject
 class CreateTeamUseCase @Inject constructor(
     private val pokemonRepository: PokemonRepository
 ) {
-    suspend fun invoke(pokemonTeam: PokemonTeam)  = pokemonRepository.createTeam(pokemonTeam.apply {
+    suspend fun invoke(pokemonTeam: PokemonTeam)  =  pokemonRepository.createTeam(pokemonTeam.apply {
         /*pokemon.forEach {
             it.isSelected = false
         }*/

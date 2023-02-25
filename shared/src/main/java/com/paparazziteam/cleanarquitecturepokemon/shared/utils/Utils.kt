@@ -120,6 +120,11 @@ fun <T : Any> List<T?>.filterNotNullItems(): List<T> {
     return this.filterNotNull()
 }
 
+fun View.preventDoubleLongClick() {
+    this.isEnabled = false
+    this.postDelayed( { this.isEnabled = true }, 3000)
+}
+
 fun copyToClipboard(context: Context, text: String) {
     val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
     val clip = android.content.ClipData.newPlainText("Copied token", text)

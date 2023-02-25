@@ -26,6 +26,9 @@ class HomeViewModel @Inject constructor(
     private val _eventsPokemons = MutableLiveData<Event<PokemonsState>>()
     val eventsPokemons:LiveData<Event<PokemonsState>> get() = _eventsPokemons
 
+    private val _eventsCreateTeam = MutableLiveData<Event<CreateTeamState>>()
+    val eventsCreateTeam:LiveData<Event<CreateTeamState>> get() = _eventsCreateTeam
+
     private val _error = MutableLiveData<String>()
     val error:LiveData<String> get() = _error
 
@@ -152,8 +155,37 @@ class HomeViewModel @Inject constructor(
             regionName = currectRegionSelected
         )
         viewModelScope.launch {
-            createTeamUseCase.invoke(pokemonTeam)
+            createTeamUseCase.invoke(pokemonTeam).observeForever {
+                when(it.status){
+                    Resource.Status.SUCCESS -> it.run{
+                        data?.let { response->
+                            handleSuccessCreateTeam(response)
+                        }
+                    }
+                    Resource.Status.ERROR -> it.run{
+                        message?.let { message->
+                            _eventsCreateTeam.value = Event(CreateTeamState.HideLoading)
+                            _eventsCreateTeam.value = Event(CreateTeamState.Error(message))
+                        }
+                    }
+                    Resource.Status.LOADING -> {
+                        _eventsCreateTeam.value = Event(CreateTeamState.ShowLoading)
+                    }
+                }
+            }
         }
+    }
+
+    private fun handleSuccessCreateTeam(response: GeneralResponse) {
+        _eventsCreateTeam.value = Event(CreateTeamState.HideLoading)
+        _eventsCreateTeam.value = Event(CreateTeamState.Success(response.message))
+    }
+
+    sealed class CreateTeamState{
+        object HideLoading : CreateTeamState()
+        object ShowLoading : CreateTeamState()
+        data class Success(val message: String) : CreateTeamState()
+        data class Error(val message: String) : CreateTeamState()
     }
 
     sealed class RegionsState {

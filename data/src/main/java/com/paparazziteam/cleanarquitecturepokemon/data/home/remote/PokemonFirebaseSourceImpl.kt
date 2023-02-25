@@ -6,6 +6,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
+import com.paparazziteam.cleanarquitecturepokemon.domain.GeneralResponse
 import com.paparazziteam.cleanarquitecturepokemon.domain.PokemonResponse
 import com.paparazziteam.cleanarquitecturepokemon.domain.PokemonTeam
 import kotlinx.coroutines.tasks.await
@@ -16,14 +17,65 @@ class PokemonFirebaseSourceImpl @Inject constructor(
     private val database: DatabaseReference
 ) : PokemonFirebaseSource {
 
-    override suspend fun createTeam(pokemonTeam:PokemonTeam) {
-        val teamId = database.child("teams").push().key ?: throw Exception("Failed to create team")
-        pokemonTeam.id = teamId
-        database.child("teams").child(teamId).setValue(pokemonTeam).await()
+    override suspend fun createTeam(pokemonTeam:PokemonTeam): LiveData<Resource<GeneralResponse>> {
+        val result = MutableLiveData<Resource<GeneralResponse>>()
+        result.value = Resource.loading(null)
+
+        val teamRef = database.child("teams").push()
+        pokemonTeam.id = teamRef.key.toString()
+        teamRef.setValue(pokemonTeam).addOnCompleteListener {
+            if (it.isSuccessful) {
+                result.value = Resource.success(GeneralResponse(true,"Team created successfully"))
+            }
+        }.addOnCanceledListener {
+            result.value = Resource.error("Canceled", null)
+        }
+        .addOnFailureListener {
+            result.value = Resource.error(it.message?:"", null)
+        }
+        return result
     }
 
-    override suspend fun deleteTeamById(teamId: String) {
-        database.child("teams").child(teamId).removeValue().await()
+    override suspend fun deleteTeamById(teamId: String): LiveData<Resource<GeneralResponse>> {
+        val result = MutableLiveData<Resource<GeneralResponse>>()
+        result.value = Resource.loading(null)
+
+        val teamRef = database.child("teams").child(teamId)
+        teamRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                snapshot.ref.removeValue()
+                result.value = Resource.success(GeneralResponse(true,"Team deleted successfully"))
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                result.value = Resource.error(error.message, null)
+            }
+        })
+        return result
+    }
+
+    override suspend fun deleteTeamByUser(userId: String): LiveData<Resource<GeneralResponse>> {
+        val result = MutableLiveData<Resource<GeneralResponse>>()
+        result.value = Resource.loading(null)
+
+        val teamRef = database.child("teams")
+        val query = teamRef.orderByChild("userId").equalTo(userId)
+        query.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                snapshot.children.forEach { child ->
+                    val childTeam = child.getValue(PokemonTeam::class.java)
+                    if (childTeam?.userId == userId) {
+                        child.ref.removeValue()
+                    }
+                }
+                result.value = Resource.success(GeneralResponse(true,"Team deleted successfully"))
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                result.value = Resource.error(error.message, null)
+            }
+        })
+        return result
     }
 
     override suspend fun addPokemonToTeam(teamId: String, pokemon: PokemonResponse) {

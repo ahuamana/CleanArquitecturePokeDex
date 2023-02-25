@@ -6,4 +6,6 @@
     <string name="edit">Edit</string>
     <string name="delete">delete</string>
     <string name="share">Share</string>
+    <string name="add_new_pokemon">add new pokemon</string>
+    <string name="delete_team">delete team</string>
 </resources>

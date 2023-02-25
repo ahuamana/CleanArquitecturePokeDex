@@ -172,6 +172,22 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
         viewModel.eventsRegions.observe(this, Observer(::handleEvents))
         viewModel.eventsPokemons.observe(this, Observer(::handleEventsPokemons))
         viewModel.error.observe(this, Observer(::handleError))
+        viewModel.eventsCreateTeam.observe(this, Observer(::handleEventsCreateTeam))
+    }
+
+    private fun handleEventsCreateTeam(event: Event<HomeViewModel.CreateTeamState>?) {
+        event?.getContentIfNotHandled()?.let {
+            when(it){
+                is HomeViewModel.CreateTeamState.Error -> it.run{
+                    Toast.makeText(this@HomeActivity, message, Toast.LENGTH_SHORT).show()
+                }
+                HomeViewModel.CreateTeamState.HideLoading -> {}
+                HomeViewModel.CreateTeamState.ShowLoading -> {}
+                is HomeViewModel.CreateTeamState.Success -> it.run {
+                    Toast.makeText(this@HomeActivity, message, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
     }
 
     private fun handleError(s: String?) {
