@@ -40,7 +40,7 @@ class PokemonTeamAdapter: ListAdapter<PokemonTeam, RecyclerView.ViewHolder>(Poke
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val pokemonTeam = getItem(position)
+        val pokemonTeam = getItem(position) ?: return
         (holder as PokemonTeamViewHolder).bind(pokemonTeam)
     }
 
@@ -58,7 +58,7 @@ class PokemonTeamAdapter: ListAdapter<PokemonTeam, RecyclerView.ViewHolder>(Poke
                 mAdapter.notifyDataSetChanged()
 
                 mAdapter.onItemClick { pokemonResponse, position ->
-                    var copy = pokemonTeam.copy(pokemon = pokemonTeam.pokemon.map { pokemon ->
+                    var copy = pokemonTeam.copy(pokemon = pokemonTeam.pokemon?.map { pokemon ->
                         pokemon.isSelected = pokemon.name == pokemonResponse.name
                         pokemon
                     })

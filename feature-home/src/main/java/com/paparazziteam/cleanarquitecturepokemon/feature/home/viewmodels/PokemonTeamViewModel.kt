@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.paparazziteam.cleanarquitecturepokemon.domain.PokemonTeam
+import com.paparazziteam.cleanarquitecturepokemon.shared.utils.filterNotNullItems
 import com.paparazziteam.cleanarquitecturepokemon.usecases.GetTeamsByUserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -23,8 +24,13 @@ class PokemonTeamViewModel @Inject constructor(
         getTeamsByUserUseCase.invoke(userId).observeForever {
             when(it.status){
                 Resource.Status.SUCCESS -> it.run{
+                    //filter pokemons that are inside team that are not null
+                    it.data?.forEach { team ->
+                        team.pokemon = team.pokemon?.filterNotNullItems()
+                    }
+
                     _events.value = Event(PokemonTeamEvent.HideLoading)
-                    _events.value = Event(PokemonTeamEvent.Success(data!!))
+                    _events.value = Event(PokemonTeamEvent.Success(it.data?: listOf()))
                 }
                 Resource.Status.ERROR -> {
                     _events.value = Event(PokemonTeamEvent.HideLoading)

@@ -2,6 +2,7 @@ package com.paparazziteam.cleanarquitecturepokemon.shared.utils
 
 import android.app.Dialog
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.drawable.ColorDrawable
@@ -113,5 +114,15 @@ fun Context.createTeamDialog(textDescription: String?,
 
 inline fun <reified T : Parcelable> Bundle.getParcelableObject(key: String): T? {
     return if (this.containsKey(key)) this.get(key) as T else null
+}
+
+fun <T : Any> List<T?>.filterNotNullItems(): List<T> {
+    return this.filterNotNull()
+}
+
+fun copyToClipboard(context: Context, text: String) {
+    val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
+    val clip = android.content.ClipData.newPlainText("Copied token", text)
+    clipboard.setPrimaryClip(clip)
 }
 

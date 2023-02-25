@@ -60,7 +60,7 @@ class RegionAdapter : ListAdapter<Region, RecyclerView.ViewHolder>(DiffCallback)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val item = getItem(position)
+        val item = getItem(position)?: return
         (holder as CategoryViewHolder).bind(item, position)
     }
 }

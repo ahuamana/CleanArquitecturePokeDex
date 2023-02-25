@@ -15,7 +15,9 @@ data class RegionResponse(
     val previous: String?,
     @SerialName("results")
     val results: List<Region>
-)
+) {
+    constructor() : this(0, "", "", listOf())
+}
 
 @Serializable
 data class Region(
@@ -24,7 +26,9 @@ data class Region(
     @SerialName("url")
     val url: String,
     var isSelected: Boolean = false // This is for the UI when the user select an item
-)
+){
+    constructor() : this("", "", false)
+}
 
 
 @Serializable
@@ -77,7 +81,7 @@ data class PokemonTeam(
     var id: String = "",
     var userId: String = "",
     var name: String,
-    var pokemon: List<PokemonResponse>,
+    var pokemon: List<PokemonResponse> ? = null,
     var regionName: String = "",
     var metaData: MetaData = MetaData()
 ) {
@@ -95,7 +99,7 @@ data class PokemonTeamParcelable(
     var id: String = "",
     var userId: String = "",
     var name: String,
-    var pokemon: List<PokemonResponseParcelable>,
+    var pokemon: List<PokemonResponseParcelable> ? = null,
     var regionName: String = "",
     val metaData: MetadataParcelable = MetadataParcelable()
 ):Parcelable
@@ -120,7 +124,7 @@ fun PokemonTeam.toParcelable() = PokemonTeamParcelable(
     id = this.id,
     userId = this.userId,
     name = this.name,
-    pokemon = this.pokemon.map { it.toParcelable() },
+    pokemon = this.pokemon?.map { it.toParcelable() },
     regionName = this.regionName,
     metaData = this.metaData.toParcelable()
 )
@@ -129,7 +133,7 @@ fun PokemonTeamParcelable.toDomain() = PokemonTeam(
     id = this.id,
     userId = this.userId,
     name = this.name,
-    pokemon = this.pokemon.map { it.toDomain() },
+    pokemon = this.pokemon?.map { it.toDomain() },
     regionName = this.regionName,
     metaData = this.metaData.toDomain()
 )

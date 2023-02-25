@@ -48,13 +48,15 @@ class PokemonAdapter : ListAdapter<PokemonResponse, RecyclerView.ViewHolder>(Dif
         return PokemonViewHolder(
             ItemPokemonBinding.inflate(
                 LayoutInflater.from(parent.context),
-                parent, false
+                parent,
+                false
             )
         )
     }
 
     inner class PokemonViewHolder(private val binding: ItemPokemonBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: PokemonResponse, position: Int) {
+
             binding.pokemonName.text = item.name
             binding.pokemonImage.loadImage(item.url)
             binding.pokemonNumber.text = item.order.toString()
@@ -76,7 +78,7 @@ class PokemonAdapter : ListAdapter<PokemonResponse, RecyclerView.ViewHolder>(Dif
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val item = getItem(position)
+        val item = getItem(position) ?: return
         (holder as PokemonViewHolder).bind(item, position)
     }
 }
