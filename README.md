@@ -9,6 +9,7 @@ In addition, the app includes a feature that allows users to generate a short li
 
 Finally, the app incorporates Crashlytics, which helps to identify and report any crashes that occur during use, ensuring that the app runs smoothly at all times.
 
+The project follows the Clean Architecture and SOLID principles for better scalability, maintainability, and testability of the codebase.
 
 ## Features
 
