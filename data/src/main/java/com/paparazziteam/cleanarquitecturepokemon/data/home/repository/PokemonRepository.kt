@@ -5,6 +5,7 @@ import com.paparazziteam.cleanarquitecturepokemon.data.home.remote.PokemonGraphQ
 import com.paparazziteam.cleanarquitecturepokemon.data.home.remote.PokemonRemoteDataSource
 import com.paparazziteam.cleanarquitecturepokemon.domain.PokemonResponse
 import com.paparazziteam.cleanarquitecturepokemon.domain.PokemonTeam
+import pe.com.tarjetaw.android.client.shared.network.performNetworkFlow
 import pe.com.tarjetaw.android.client.shared.network.performOnlyNetwork
 import javax.inject.Inject
 
@@ -13,15 +14,15 @@ class PokemonRepository @Inject constructor(
     private val pokemonGraphQlDataSource: PokemonGraphQlDataSource,
     private val pokemonFirebaseSource: PokemonFirebaseSource
 ) {
-    fun getRegions() =  performOnlyNetwork(
+    suspend fun getRegions() =  performNetworkFlow(
         networkCall = {pokemonRemoteDataSource.getRegions()}
     )
 
-    fun getLocationsByRegion(regionId:Int) =  performOnlyNetwork(
+    suspend fun getLocationsByRegion(regionId:Int) =  performNetworkFlow(
         networkCall = {pokemonRemoteDataSource.getLocationsByRegion(regionId)}
     )
 
-    fun getPokemonsByLocation(locationId:Int) =  performOnlyNetwork(
+    suspend fun getPokemonsByLocation(locationId:Int) =  performNetworkFlow(
         networkCall = {pokemonRemoteDataSource.getPokemonsByLocation(locationId)}
     )
 

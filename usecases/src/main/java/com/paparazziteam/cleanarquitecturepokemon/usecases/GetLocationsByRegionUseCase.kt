@@ -6,5 +6,5 @@ import javax.inject.Inject
 class GetLocationsByRegionUseCase @Inject constructor(
     private val pokemonRepository: PokemonRepository
 ) {
-    operator fun invoke(regionId:Int) = pokemonRepository.getLocationsByRegion(regionId)
+   suspend operator fun invoke(regionId:Int) = pokemonRepository.getLocationsByRegion(regionId)
 }

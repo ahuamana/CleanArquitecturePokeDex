@@ -44,22 +44,24 @@ class HomeViewModel @Inject constructor(
         getRegions()
     }
 
-    private fun getRegions() = getRegionsUseCase().observeForever {
-        when(it.status){
-            Resource.Status.SUCCESS -> it.run{
-                data?.let { response->
-                    handleSuccess(response)
-                    getPokemonsByRegion(currectRegionSelected)
+    private fun getRegions() = viewModelScope.launch {
+        getRegionsUseCase.invoke().collect {
+            when(it.status){
+                Resource.Status.SUCCESS -> it.run{
+                    data?.let { response->
+                        handleSuccess(response)
+                        getPokemonsByRegion(currectRegionSelected)
+                    }
                 }
-            }
-            Resource.Status.ERROR -> it.run{
-                message?.let { message->
-                    _eventsRegions.value = Event(RegionsState.HideLoading)
-                    _eventsRegions.value = Event(RegionsState.Error(message))
+                Resource.Status.ERROR -> it.run{
+                    message?.let { message->
+                        _eventsRegions.value = Event(RegionsState.HideLoading)
+                        _eventsRegions.value = Event(RegionsState.Error(message))
+                    }
                 }
-            }
-            Resource.Status.LOADING -> {
-                _eventsRegions.value = Event(RegionsState.ShowLoading)
+                Resource.Status.LOADING -> {
+                    _eventsRegions.value = Event(RegionsState.ShowLoading)
+                }
             }
         }
     }

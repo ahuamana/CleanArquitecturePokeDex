@@ -6,5 +6,5 @@ import javax.inject.Inject
 class GetPokemonsByLocationUseCase @Inject constructor(
     private val pokemonRepository: PokemonRepository
 ) {
-    operator fun invoke(locationId:Int) = pokemonRepository.getPokemonsByLocation(locationId)
+   suspend operator fun invoke(locationId:Int) = pokemonRepository.getPokemonsByLocation(locationId)
 }
