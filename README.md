@@ -31,7 +31,7 @@ This project uses the PokeAPI v2 GraphQL endpoint as its data source. The endpoi
 
 Here's an example GraphQL query that demonstrates how to use the endpoint to retrieve data for your app:
 
-```http
+```
   query GetPokemonByRegion($regionName: String!, $limit: Int!, $offset: Int!) {
     pokemon_gen: pokemon_v2_generation(where: {pokemon_v2_region: {name: {_eq: $regionName}}}) {
         pokemons: pokemon_v2_pokemonspecies(limit: $limit, offset: $offset, order_by: {order: asc}) {
