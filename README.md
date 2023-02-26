@@ -25,6 +25,10 @@ The project follows the Clean Architecture and SOLID principles for better scala
 
 ![pokedex - screenshots](https://user-images.githubusercontent.com/60039961/221394064-eee4b436-65e8-4fab-8191-b77d05e07ad7.png)
 
+## Permissions
+
+On Android versions prior to Android 8.0, wallabag requires the following permissions:
+- Full Network Access.
 
 ## API Reference
 This project uses the PokeAPI v2 GraphQL endpoint as its data source. The endpoint URL is: https://beta.pokeapi.co/graphql/v1beta. This endpoint allows for more flexible queries than the REST API.
