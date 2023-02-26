@@ -39,7 +39,7 @@ class PokemonRepository @Inject constructor(
 
     suspend fun deleteTeamByUser(userId: String) = pokemonFirebaseSource.deleteTeamByUser(userId)
 
-    suspend fun updatePokemonTeam(teamId: String, pokemon: PokemonResponse) = pokemonFirebaseSource.updatePokemonTeam(teamId, pokemon)
+    suspend fun updatePokemonTeam(teamId: String,pokemonOld:PokemonResponse, pokemon: PokemonResponse) = pokemonFirebaseSource.updatePokemonTeam(teamId,pokemonOld, pokemon)
 
     suspend fun getPokemonTeamByToken(token: String) = pokemonFirebaseSource.getPokemonTeamByToken(token)
 }

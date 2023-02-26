@@ -80,23 +80,28 @@ class PokemonFirebaseSourceImpl @Inject constructor(
 
     override suspend fun updatePokemonTeam(
         teamId: String,
+        pokemonOld:PokemonResponse,
         pokemon: PokemonResponse
     ): LiveData<Resource<GeneralResponse>> {
-
         val result = MutableLiveData<Resource<GeneralResponse>>()
         result.value = Resource.loading(null)
-
         val teamRef = database.child("teams").child(teamId)
-        val query = teamRef.child("pokemon").orderByChild("name").equalTo(pokemon.name)
+        val query = teamRef.child("pokemon").orderByChild("name").equalTo(pokemonOld.name)
         query.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
+                var foundPokemon  = false
                 snapshot.children.forEach { child ->
                     val childPokemon = child.getValue(PokemonResponse::class.java)
-                    if (childPokemon?.name == pokemon.name) {
+                    if (childPokemon?.name == pokemonOld.name) {
                         child.ref.setValue(pokemon)
+                        foundPokemon  = true
                     }
                 }
-                result.value = Resource.success(GeneralResponse(true,"Team updated successfully"))
+                if (foundPokemon) {
+                    result.value = Resource.success(GeneralResponse(true,"Team updated successfully"))
+                } else {
+                result.value = Resource.error("Pokemon not found in team", null)
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {

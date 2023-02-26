@@ -7,5 +7,5 @@ import javax.inject.Inject
 class UpdatePokemonTeamUseCase @Inject constructor(
     private val pokemonRepository: PokemonRepository
 ) {
-    suspend fun execute(teamId: String, pokemon: PokemonResponse) = pokemonRepository.updatePokemonTeam(teamId, pokemon)
+    suspend operator fun invoke(teamId: String,pokemonOld:PokemonResponse, pokemon: PokemonResponse) = pokemonRepository.updatePokemonTeam(teamId,pokemonOld, pokemon)
 }

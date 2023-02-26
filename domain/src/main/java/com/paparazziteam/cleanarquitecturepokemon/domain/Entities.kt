@@ -80,6 +80,15 @@ data class PokemonResponse(
     var isSelected:Boolean = false
 ){
     constructor() : this("", "", "", listOf(), 0, false)
+
+    fun copy() = PokemonResponse(
+        name = this.name,
+        url = this.url,
+        description = this.description,
+        tipo = this.tipo,
+        order = this.order,
+        isSelected = this.isSelected
+    )
 }
 
 data class PokemonTeam(

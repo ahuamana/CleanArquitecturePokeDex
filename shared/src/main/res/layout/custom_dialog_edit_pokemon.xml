@@ -31,12 +31,12 @@
             app:layout_constraintStart_toStartOf="@+id/tvDescription"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_height="90dp">
-
             <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/ivPokemon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:src="@drawable/pokeapi" />
-
+                app:srcCompat="@drawable/pokeapi"
+                android:src="@drawable/pokeapi" />
         </com.google.android.material.card.MaterialCardView>
 
 
@@ -64,12 +64,12 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvDescription">
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etTeamName"
+                android:id="@+id/etPokemonName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/enter_new_pokemon_name"
                 android:inputType="text"
-                android:maxLength="20"
+                android:maxLength="14"
                 android:textColor="@color/colorPrimary"
                 android:textColorHint="@color/colorPrimary"
                 android:fontFamily="@font/uni_neue_light"
@@ -87,12 +87,12 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tilTeamName">
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etDescription"
+                android:id="@+id/etPokemonDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/enter_description"
-                android:inputType="text"
-                android:maxLength="20"
+                android:inputType="textMultiLine"
+                android:lines="4"
                 android:textColor="@color/colorPrimary"
                 android:textColorHint="@color/colorPrimary"
                 android:fontFamily="@font/uni_neue_light"
@@ -110,7 +110,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tilDescription">
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etType"
+                android:id="@+id/etPokemonType"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/enter_type"
