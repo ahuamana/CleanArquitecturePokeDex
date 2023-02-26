@@ -7,12 +7,12 @@ import com.paparazziteam.cleanarquitecturepokemon.domain.PokemonTeam
 import pe.com.tarjetaw.android.client.shared.network.Resource
 
 interface PokemonFirebaseSource {
-    suspend fun createTeam(pokemonTeam:PokemonTeam) : LiveData<Resource<GeneralResponse>>
+    suspend fun createTeam(pokemonTeam:PokemonTeam) : Resource<GeneralResponse>
     suspend fun addPokemonToTeam(teamId: String, pokemon: PokemonResponse)
     suspend fun removePokemonFromTeam(teamId: String, pokemon: PokemonResponse)
     suspend fun getTeamsByUser(userId: String): LiveData<Resource<List<PokemonTeam>>>
-    suspend fun deleteTeamById(teamId: String): LiveData<Resource<GeneralResponse>>
-    suspend fun deleteTeamByUser(userId: String) : LiveData<Resource<GeneralResponse>>
-    suspend fun updatePokemonTeam(teamId: String, pokemonOld:PokemonResponse , pokemon: PokemonResponse) : LiveData<Resource<GeneralResponse>>
+    suspend fun deleteTeamById(teamId: String): Resource<GeneralResponse>
+    suspend fun deleteTeamByUser(userId: String) : Resource<GeneralResponse>
+    suspend fun updatePokemonTeam(teamId: String, pokemonOld:PokemonResponse , pokemon: PokemonResponse) : Resource<GeneralResponse>
     suspend fun getPokemonTeamByToken(token: String): Resource<PokemonTeam>
 }

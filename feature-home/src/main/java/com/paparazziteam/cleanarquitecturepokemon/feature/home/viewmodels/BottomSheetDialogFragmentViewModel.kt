@@ -33,15 +33,15 @@ class BottomSheetDialogFragmentViewModel @Inject constructor(
     }
 
     fun deleteTeamByUser(userId: String) = viewModelScope.launch {
-        deleteTeamByIdUseCase(userId).observeForever {
-            when(it.status){
+        deleteTeamByIdUseCase(userId).apply {
+            when(this.status){
                 Resource.Status.SUCCESS -> {
                     _eventsDeleteTeamByUser.value = Event(DeleteTeamByUserState.HideLoading)
-                    _eventsDeleteTeamByUser.value = Event(DeleteTeamByUserState.Success(it.data?.message ?: ""))
+                    _eventsDeleteTeamByUser.value = Event(DeleteTeamByUserState.Success(this.data?.message ?: ""))
                 }
                 Resource.Status.ERROR -> {
                     _eventsDeleteTeamByUser.value = Event(DeleteTeamByUserState.HideLoading)
-                    _eventsDeleteTeamByUser.value = Event(DeleteTeamByUserState.Error(it.message ?: ""))
+                    _eventsDeleteTeamByUser.value = Event(DeleteTeamByUserState.Error(this.message ?: ""))
                 }
                 Resource.Status.LOADING -> {
                     _eventsDeleteTeamByUser.value = Event(DeleteTeamByUserState.ShowLoading)
@@ -51,17 +51,17 @@ class BottomSheetDialogFragmentViewModel @Inject constructor(
     }
 
     fun updatePokemonTeam(teamId: String,pokemonOld:PokemonResponse, pokemon: PokemonResponse) = viewModelScope.launch {
-        updatePokemonTeamUseCase(teamId, pokemonOld, pokemon).observeForever {
-            when(it.status){
+        updatePokemonTeamUseCase(teamId, pokemonOld, pokemon).apply{
+            when(this.status){
                 Resource.Status.SUCCESS -> {
                     println("updatePokemonTeam -- Sucess")
                     _eventsUpdatePokemonTeam.value = Event(UpdatePokemonTeamState.HideLoading)
-                    _eventsUpdatePokemonTeam.value = Event(UpdatePokemonTeamState.Success(it.data?.message ?: ""))
+                    _eventsUpdatePokemonTeam.value = Event(UpdatePokemonTeamState.Success(this.data?.message ?: ""))
                 }
                 Resource.Status.ERROR -> {
-                    println("updatePokemonTeam -- ${it.message}")
+                    println("updatePokemonTeam -- ${this.message}")
                     _eventsUpdatePokemonTeam.value = Event(UpdatePokemonTeamState.HideLoading)
-                    _eventsUpdatePokemonTeam.value = Event(UpdatePokemonTeamState.Error(it.message ?: ""))
+                    _eventsUpdatePokemonTeam.value = Event(UpdatePokemonTeamState.Error(this.message ?: ""))
                 }
                 Resource.Status.LOADING -> {
                     _eventsUpdatePokemonTeam.value = Event(UpdatePokemonTeamState.ShowLoading)

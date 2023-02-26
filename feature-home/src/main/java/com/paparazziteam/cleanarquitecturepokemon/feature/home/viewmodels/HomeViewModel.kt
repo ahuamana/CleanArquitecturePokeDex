@@ -161,14 +161,14 @@ class HomeViewModel @Inject constructor(
             regionName = currectRegionSelected
         )
         viewModelScope.launch {
-            createTeamUseCase.invoke(pokemonTeam).observeForever {
-                when(it.status){
-                    Resource.Status.SUCCESS -> it.run{
+            createTeamUseCase.invoke(pokemonTeam).apply {
+                when(this.status){
+                    Resource.Status.SUCCESS -> this.run{
                         data?.let { response->
                             handleSuccessCreateTeam(response)
                         }
                     }
-                    Resource.Status.ERROR -> it.run{
+                    Resource.Status.ERROR -> this.run{
                         message?.let { message->
                             _eventsCreateTeam.value = Event(CreateTeamState.HideLoading)
                             _eventsCreateTeam.value = Event(CreateTeamState.Error(message))
@@ -185,14 +185,14 @@ class HomeViewModel @Inject constructor(
     fun copyTeam(pokemonTeam: PokemonTeam, userId: String){
         pokemonTeam.userId = userId
         viewModelScope.launch {
-            createTeamUseCase.invoke(pokemonTeam).observeForever {
-                when(it.status){
-                    Resource.Status.SUCCESS -> it.run{
+            createTeamUseCase.invoke(pokemonTeam).apply {
+                when(this.status){
+                    Resource.Status.SUCCESS -> this.run{
                         data?.let { response->
                             handleSuccessCreateTeam(response)
                         }
                     }
-                    Resource.Status.ERROR -> it.run{
+                    Resource.Status.ERROR -> this.run{
                         message?.let { message->
                             _eventsCreateTeam.value = Event(CreateTeamState.HideLoading)
                             _eventsCreateTeam.value = Event(CreateTeamState.Error(message))
