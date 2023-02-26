@@ -18,7 +18,7 @@ class PokemonTeamViewModel @Inject constructor(
     private val getTeamsByUserUseCase: GetTeamsByUserUseCase
 ):ViewModel() {
 
-    private val _events =  MutableLiveData <Event<PokemonTeamEvent>>()
+    private val _events =  MutableLiveData<Event<PokemonTeamEvent>>()
     val events : LiveData<Event<PokemonTeamEvent>> get() = _events
     fun getTeamsByUser(userId: String) = viewModelScope.launch {
         getTeamsByUserUseCase.invoke(userId).observeForever {
@@ -48,6 +48,15 @@ class PokemonTeamViewModel @Inject constructor(
         data class Error(val error: String) : PokemonTeamEvent()
         object ShowLoading : PokemonTeamEvent()
         object HideLoading : PokemonTeamEvent()
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        removeObservers()
+    }
+
+    private fun removeObservers() {
+
     }
 
 }
