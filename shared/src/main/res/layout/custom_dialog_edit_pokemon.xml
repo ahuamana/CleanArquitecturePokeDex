@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:id="@+id/card_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="25dp"
+    android:background="@android:color/transparent"
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        app:cardCornerRadius="20dp"
+        tools:cardBackgroundColor="@color/azul_fonts"
+        app:cardElevation="0dp"
+        android:layout_height="wrap_content">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/ivIcon"
+            android:layout_width="90dp"
+            app:strokeColor="@color/colorPrimary"
+            app:strokeWidth="2dp"
+            android:layout_marginTop="20dp"
+            app:cardCornerRadius="50dp"
+            app:layout_constraintEnd_toEndOf="@+id/tvDescription"
+            app:layout_constraintStart_toStartOf="@+id/tvDescription"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_height="90dp">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:src="@drawable/pokeapi" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="21dp"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:text="@string/edit_pokemon"
+            android:fontFamily="@font/uni_neue_bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ivIcon" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilTeamName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="21dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvDescription">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etTeamName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/enter_new_pokemon_name"
+                android:inputType="text"
+                android:maxLength="20"
+                android:textColor="@color/colorPrimary"
+                android:textColorHint="@color/colorPrimary"
+                android:fontFamily="@font/uni_neue_light"
+                android:textSize="16sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!--Description Edit-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="21dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tilTeamName">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/enter_description"
+                android:inputType="text"
+                android:maxLength="20"
+                android:textColor="@color/colorPrimary"
+                android:textColorHint="@color/colorPrimary"
+                android:fontFamily="@font/uni_neue_light"
+                android:textSize="16sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Tipo pokemon -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="21dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tilDescription">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/enter_type"
+                android:inputType="text"
+                android:maxLength="20"
+                android:textColor="@color/colorPrimary"
+                android:textColorHint="@color/colorPrimary"
+                android:fontFamily="@font/uni_neue_light"
+                android:textSize="16sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnEditPokemon"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/rounder_button_no_color"
+            android:minWidth="180dp"
+            android:minHeight="45dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="Edit Pokemon"
+            app:backgroundTint="@color/colorSecondary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tilType" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</LinearLayout>

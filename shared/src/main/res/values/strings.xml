@@ -9,4 +9,8 @@
     <string name="add_new_pokemon">add new pokemon</string>
     <string name="delete_team">delete team</string>
     <string name="copy">copy</string>
+    <string name="edit_pokemon">Edit your pokemon</string>
+    <string name="enter_description">enter description</string>
+    <string name="enter_type">enter type pokemon</string>
+    <string name="enter_new_pokemon_name">enter new pokemon name</string>
 </resources>
