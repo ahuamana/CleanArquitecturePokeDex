@@ -13,8 +13,6 @@ interface PokemonFirebaseSource {
     suspend fun getTeamsByUser(userId: String): LiveData<Resource<List<PokemonTeam>>>
     suspend fun deleteTeamById(teamId: String): LiveData<Resource<GeneralResponse>>
     suspend fun deleteTeamByUser(userId: String) : LiveData<Resource<GeneralResponse>>
-
     suspend fun updatePokemonTeam(teamId: String, pokemonOld:PokemonResponse , pokemon: PokemonResponse) : LiveData<Resource<GeneralResponse>>
-
-    suspend fun getPokemonTeamByToken(token: String): LiveData<Resource<PokemonTeam>>
+    suspend fun getPokemonTeamByToken(token: String): Resource<PokemonTeam>
 }

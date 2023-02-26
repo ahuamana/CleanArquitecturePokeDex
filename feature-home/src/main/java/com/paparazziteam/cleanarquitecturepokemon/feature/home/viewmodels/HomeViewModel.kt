@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.paparazziteam.cleanarquitecturepokemon.domain.*
-import com.paparazziteam.cleanarquitecturepokemon.shared.utils.generateToken
 import com.paparazziteam.cleanarquitecturepokemon.usecases.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -161,6 +160,30 @@ class HomeViewModel @Inject constructor(
             userId = email,
             regionName = currectRegionSelected
         )
+        viewModelScope.launch {
+            createTeamUseCase.invoke(pokemonTeam).observeForever {
+                when(it.status){
+                    Resource.Status.SUCCESS -> it.run{
+                        data?.let { response->
+                            handleSuccessCreateTeam(response)
+                        }
+                    }
+                    Resource.Status.ERROR -> it.run{
+                        message?.let { message->
+                            _eventsCreateTeam.value = Event(CreateTeamState.HideLoading)
+                            _eventsCreateTeam.value = Event(CreateTeamState.Error(message))
+                        }
+                    }
+                    Resource.Status.LOADING -> {
+                        _eventsCreateTeam.value = Event(CreateTeamState.ShowLoading)
+                    }
+                }
+            }
+        }
+    }
+
+    fun copyTeam(pokemonTeam: PokemonTeam, userId: String){
+        pokemonTeam.userId = userId
         viewModelScope.launch {
             createTeamUseCase.invoke(pokemonTeam).observeForever {
                 when(it.status){

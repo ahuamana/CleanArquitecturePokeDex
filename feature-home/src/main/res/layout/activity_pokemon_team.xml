@@ -45,7 +45,7 @@
         tools:listitem="@layout/item_pokemon_team" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabCreateTeam"
+        android:id="@+id/fabPokemonTeamCopy"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:backgroundTint="@color/colorPrimary"

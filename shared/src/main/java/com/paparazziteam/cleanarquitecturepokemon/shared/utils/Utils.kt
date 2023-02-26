@@ -8,6 +8,7 @@ import android.graphics.PorterDuff
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.Parcelable
+import android.text.InputFilter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.Window
@@ -18,6 +19,7 @@ import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.imageview.ShapeableImageView
+import com.google.android.material.textfield.TextInputEditText
 import com.paparazziteam.cleanarquitecturepokemon.shared.R
 import com.paparazziteam.cleanarquitecturepokemon.shared.databinding.CustomDialogCreateTeamBinding
 import kotlinx.serialization.decodeFromString
@@ -123,6 +125,11 @@ fun <T : Any> List<T?>.filterNotNullItems(): List<T> {
 fun View.preventDoubleLongClick() {
     this.isEnabled = false
     this.postDelayed( { this.isEnabled = true }, 3000)
+}
+
+fun TextInputEditText.setMaxLength(maxLength: Int) {
+    val filters = arrayOf<InputFilter>(InputFilter.LengthFilter(maxLength))
+    this.filters = filters
 }
 
 fun copyToClipboard(context: Context, text: String) {

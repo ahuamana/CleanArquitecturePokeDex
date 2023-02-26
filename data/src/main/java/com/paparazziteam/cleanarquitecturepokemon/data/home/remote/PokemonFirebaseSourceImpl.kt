@@ -12,6 +12,7 @@ import com.paparazziteam.cleanarquitecturepokemon.domain.PokemonTeam
 import kotlinx.coroutines.tasks.await
 import pe.com.tarjetaw.android.client.shared.network.Resource
 import javax.inject.Inject
+import kotlin.coroutines.suspendCoroutine
 
 class PokemonFirebaseSourceImpl @Inject constructor(
     private val database: DatabaseReference
@@ -111,28 +112,26 @@ class PokemonFirebaseSourceImpl @Inject constructor(
         return result
     }
 
-    override suspend fun getPokemonTeamByToken(token: String): LiveData<Resource<PokemonTeam>> {
+    override suspend fun getPokemonTeamByToken(token: String): Resource<PokemonTeam> {
         Resource.loading(null) // event loading
         val teamRef = database.child("teams")
         val query = teamRef.orderByChild("metaData/token").equalTo(token)
-        return object : LiveData<Resource<PokemonTeam>>() {
-            override fun onActive() {
-                super.onActive()
-                query.addValueEventListener(object : ValueEventListener {
-                    override fun onDataChange(snapshot: DataSnapshot) {
-                        val team = snapshot.children.first().getValue(PokemonTeam::class.java)
-                        value = if (team != null) {
-                            Resource.success(team)
-                        } else {
-                            Resource.error("Invalid team data")
-                        }
+        return suspendCoroutine { continuation ->
+            query.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if(!snapshot.exists() || snapshot.children.count() == 0){
+                        return continuation.resumeWith(Result.success(Resource.error("Team not found")))
                     }
+                    val team = snapshot.children.first().getValue(PokemonTeam::class.java)
+                        ?: return continuation.resumeWith(Result.success(Resource.error("Invalid team data")))
 
-                    override fun onCancelled(error: DatabaseError) {
-                        value = Resource.error(error.message, null)
-                    }
-                })
-            }
+                    continuation.resumeWith(Result.success(Resource.success(team)))
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    continuation.resumeWith(Result.success(Resource.error(error.message, null)))
+                }
+            })
         }
     }
 

@@ -13,4 +13,6 @@
     <string name="enter_description">enter description</string>
     <string name="enter_type">enter type pokemon</string>
     <string name="enter_new_pokemon_name">enter new pokemon name</string>
+    <string name="enter_token_to_copy_team">Enter token to copy the team</string>
+    <string name="enter_token">token</string>
 </resources>
