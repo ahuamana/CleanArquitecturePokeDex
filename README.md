@@ -27,7 +27,7 @@ The project follows the Clean Architecture and SOLID principles for better scala
 
 ## Permissions
 
-On Android versions prior to Android 8.0, wallabag requires the following permissions:
+On Android versions prior to Android 8.0, Pokémon Team Creator requires the following permissions:
 - Full Network Access.
 
 ## API Reference
