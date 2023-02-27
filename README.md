@@ -19,6 +19,7 @@ The project follows the Clean Architecture and SOLID principles for better scala
 - Basic information displayed for each Pokémon: name, number, type, Pokédex description, and image
 - Option to modify or delete teams
 - Token generation to share teams
+- Background Animation with Lottie
 - Crashlytics for identifying and reporting crashes
 
 ## Screenshots
