@@ -19,11 +19,12 @@ The project follows the Clean Architecture and SOLID principles for better scala
 - Basic information displayed for each Pokémon: name, number, type, Pokédex description, and image
 - Option to modify or delete teams
 - Token generation to share teams
+- Background Animation with Lottie
 - Crashlytics for identifying and reporting crashes
 
 ## Screenshots
 
-![pokedex - screenshots](https://user-images.githubusercontent.com/60039961/221394064-eee4b436-65e8-4fab-8191-b77d05e07ad7.png)
+![pokedex](https://user-images.githubusercontent.com/60039961/221685745-35fd45bf-18cd-4d04-8adf-8ab3525ddc92.png)
 
 ## Permissions
 
