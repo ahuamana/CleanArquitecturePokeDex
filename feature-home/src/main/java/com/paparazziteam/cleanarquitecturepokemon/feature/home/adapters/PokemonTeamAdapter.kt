@@ -7,8 +7,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.paparazziteam.cleanarquitecturepokemon.domain.PokemonTeam
+import com.paparazziteam.cleanarquitecturepokemon.feature.home.R
 import com.paparazziteam.cleanarquitecturepokemon.feature.home.databinding.ItemPokemonTeamBinding
 import com.paparazziteam.cleanarquitecturepokemon.shared.components.HorizontalSpacingItemDecoration
+import com.paparazziteam.cleanarquitecturepokemon.shared.utils.setBackgrounColorWithAlpha
 
 class PokemonTeamAdapter: ListAdapter<PokemonTeam, RecyclerView.ViewHolder>(PokemonTeamDiffUtil) {
 
@@ -47,6 +49,7 @@ class PokemonTeamAdapter: ListAdapter<PokemonTeam, RecyclerView.ViewHolder>(Poke
     inner class PokemonTeamViewHolder(private val binding: ItemPokemonTeamBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(pokemonTeam: PokemonTeam) {
            binding.apply {
+                root.setBackgrounColorWithAlpha(com.paparazziteam.cleanarquitecturepokemon.shared.R.color.color_input_hint, 0.5f)
                 tvPokemonTeamNameDescription.text = pokemonTeam.name
                val mAdapter = PokemonAdapter()
                 binding.rvPokemonTeamPokemon.apply {

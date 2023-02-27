@@ -4,55 +4,81 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     app:cardCornerRadius="0dp"
-    app:cardBackgroundColor="@color/color_input_hint"
+    app:cardElevation="0dp"
+    android:alpha="0.9"
+    android:background="@color/color_transparent"
     android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_marginVertical="8dp"
         android:layout_height="match_parent">
 
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvPokemonTeamPokemon"
-            android:layout_width="wrap_content"
-            android:layout_marginTop="12dp"
-            android:layout_height="wrap_content"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:listitem="@layout/item_pokemon"
-            tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            android:orientation="horizontal"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:itemCount="6" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tvPokemonTeamName"
+        <View
+            android:id="@+id/vbackground"
             android:layout_width="0dp"
-            android:layout_marginTop="8dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Team Name:"
-            android:fontFamily="@font/uni_neue_bold"
-            app:layout_constraintEnd_toStartOf="@+id/tvPokemonTeamNameDescription"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rvPokemonTeamPokemon" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tvPokemonTeamNameDescription"
-            android:layout_width="0dp"
-            android:layout_marginTop="8dp"
-            android:layout_height="wrap_content"
-            android:gravity="start"
-            android:text="Mi Team"
-            android:fontFamily="@font/uni_neue_regular"
-            app:layout_constraintStart_toEndOf="@+id/tvPokemonTeamName"
+            android:layout_height="0dp"
+            android:backgroundTint="@color/color_input_hint"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rvPokemonTeamPokemon" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginVertical="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvPokemonTeamPokemon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:itemCount="6"
+                tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_pokemon" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvPokemonTeamName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/uni_neue_bold"
+                android:gravity="center"
+                android:text="Team Name:"
+                app:layout_constraintEnd_toStartOf="@+id/tvPokemonTeamNameDescription"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rvPokemonTeamPokemon" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvPokemonTeamNameDescription"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/uni_neue_regular"
+                android:gravity="start"
+                android:text="Mi Team"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tvPokemonTeamName"
+                app:layout_constraintTop_toBottomOf="@+id/rvPokemonTeamPokemon" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
 
 
 </com.google.android.material.card.MaterialCardView>

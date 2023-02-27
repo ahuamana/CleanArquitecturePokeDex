@@ -138,3 +138,7 @@ fun copyToClipboard(context: Context, text: String) {
     clipboard.setPrimaryClip(clip)
 }
 
+fun View.setBackgrounColorWithAlpha(@ColorRes colorRes: Int, alpha: Float) {
+    this.setBackgroundColor(ContextCompat.getColor(this.context, colorRes).withAlpha(alpha))
+}
+
