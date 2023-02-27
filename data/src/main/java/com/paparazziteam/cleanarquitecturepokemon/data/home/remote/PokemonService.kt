@@ -4,6 +4,7 @@ package com.paparazziteam.cleanarquitecturepokemon.data.home.remote
 import com.paparazziteam.cleanarquitecturepokemon.domain.LocationResponse
 import com.paparazziteam.cleanarquitecturepokemon.domain.PokemonLocationResponse
 import com.paparazziteam.cleanarquitecturepokemon.domain.RegionResponse
+import kotlinx.coroutines.flow.Flow
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path

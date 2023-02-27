@@ -6,6 +6,7 @@ import com.paparazziteam.cleanarquitecturepokemon.data.home.remote.PokemonRemote
 import com.paparazziteam.cleanarquitecturepokemon.domain.PokemonResponse
 import com.paparazziteam.cleanarquitecturepokemon.domain.PokemonTeam
 import pe.com.tarjetaw.android.client.shared.network.performNetworkFlow
+import pe.com.tarjetaw.android.client.shared.network.performNetworkFlowWithoutResource
 import pe.com.tarjetaw.android.client.shared.network.performOnlyNetwork
 import javax.inject.Inject
 
@@ -14,7 +15,7 @@ class PokemonRepository @Inject constructor(
     private val pokemonGraphQlDataSource: PokemonGraphQlDataSource,
     private val pokemonFirebaseSource: PokemonFirebaseSource
 ) {
-    suspend fun getRegions() =  performNetworkFlow(
+    suspend fun getRegions() =  performNetworkFlowWithoutResource(
         networkCall = {pokemonRemoteDataSource.getRegions()}
     )
 
@@ -26,7 +27,10 @@ class PokemonRepository @Inject constructor(
         networkCall = {pokemonRemoteDataSource.getPokemonsByLocation(locationId)}
     )
 
-    suspend fun getPokemonsByRegion(region:String, limit:Int, offSet:Int) = pokemonGraphQlDataSource.getPokemonsByRegion(region, limit, offSet)
+    suspend fun getPokemonsByRegion(region:String, limit:Int, offSet:Int) = performNetworkFlowWithoutResource(
+        networkCall = {pokemonGraphQlDataSource.getPokemonsByRegion(region, limit, offSet)}
+    )
+
 
     suspend fun createTeam(pokemonTeam: PokemonTeam) = pokemonFirebaseSource.createTeam(pokemonTeam)
 

@@ -68,5 +68,6 @@ dependencies {
     // viewModelExtensionsLib
     implementation viewModelExtensionForFragmentLib
 
-
+    //lottie
+    implementation lottieLib
 }

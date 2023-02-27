@@ -49,5 +49,15 @@ suspend fun <T> performNetworkFlow(networkCall: suspend () -> Resource<T>): Flow
     }.flowOn(Dispatchers.IO)
 
 
+// this fuction is for use with flow to return any type of data without Resource wrapper to fetch data from network
+suspend fun <T> performNetworkFlowWithoutResource(networkCall: suspend () -> T): Flow<T> =
+    flow {
+        val responseStatus = networkCall.invoke()
+        emit(responseStatus)
+    }.flowOn(Dispatchers.IO)
+
+//funtion to work with flow and apollo client
+
+
 
 

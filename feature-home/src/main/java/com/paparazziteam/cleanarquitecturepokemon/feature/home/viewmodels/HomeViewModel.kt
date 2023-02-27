@@ -6,7 +6,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.paparazziteam.cleanarquitecturepokemon.domain.*
 import com.paparazziteam.cleanarquitecturepokemon.usecases.*
+import com.paparazziteam.cleanarquitecturepokemon.usecases.mappers.toPokemonResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import pe.com.tarjetaw.android.client.shared.network.Event
 import pe.com.tarjetaw.android.client.shared.network.Resource
@@ -45,41 +49,37 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun getRegions() = viewModelScope.launch {
-        getRegionsUseCase.invoke().collect {
-            when(it.status){
-                Resource.Status.SUCCESS -> it.run{
-                    data?.let { response->
-                        handleSuccess(response)
-                        getPokemonsByRegion(currectRegionSelected)
-                    }
+        _eventsRegions.value = Event(RegionsState.ShowLoading)
+        getRegionsUseCase
+            .invoke()
+            .onEach{
+                handleSuccess(it) // event success
+                getPokemonsByRegion(currectRegionSelected)
+            }.catch {
+                when(it){
+                is InvalidPokemonCreatorException -> _eventsRegions.value = Event(RegionsState.Error(it.message.toString()))
+                is Throwable -> _eventsRegions.value = Event(RegionsState.Error(it.message.toString()))
                 }
-                Resource.Status.ERROR -> it.run{
-                    message?.let { message->
-                        _eventsRegions.value = Event(RegionsState.HideLoading)
-                        _eventsRegions.value = Event(RegionsState.Error(message))
-                    }
-                }
-                Resource.Status.LOADING -> {
-                    _eventsRegions.value = Event(RegionsState.ShowLoading)
-                }
-            }
-        }
+            }.launchIn(viewModelScope)
     }
 
     fun getPokemonsByRegion(region:String, limit:Int = 20, offSet:Int=0) = viewModelScope.launch {
         _eventsPokemons.value = Event(PokemonsState.ShowLoading)
-        try {
-            getPokemonsByRegionUseCase(region, limit, offSet)?.let {
-                pokemons.addAll(it)
+        getPokemonsByRegionUseCase
+            .invoke(region, limit, offSet)
+            .onEach {
                 _eventsPokemons.value = Event(PokemonsState.HideLoading)
+                pokemons.addAll(it)
                 _eventsPokemons.value = Event(PokemonsState.Success(pokemons))
-            }
-
-        }catch (e:Exception){
-            _eventsPokemons.value = Event(PokemonsState.Error(e.message.toString()))
-            e.printStackTrace()
-        }
+            }.catch {
+                when(it){
+                    is InvalidPokemonCreatorException -> _eventsPokemons.value = Event(PokemonsState.Error(it.message.toString()))
+                    is Throwable -> _eventsPokemons.value = Event(PokemonsState.Error(it.message.toString()))
+                }
+            }.launchIn(viewModelScope)
     }
+
+
 
     fun getPokemonsByRegionNextPage() = viewModelScope.launch {
         offset += 20

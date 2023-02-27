@@ -82,5 +82,6 @@ ext{
     //Firebase Realtime Database
     firebaseRealtimeDatabaseLib = "com.google.firebase:firebase-database-ktx:20.1.0"
 
-
+    //lottie
+    lottieLib = "com.airbnb.android:lottie:4.2.0"
 }
