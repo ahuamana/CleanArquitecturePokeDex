@@ -5,9 +5,11 @@
     <application>
         <activity
             android:name=".PokemonTeamActivity"
+            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
             android:exported="false" />
         <activity
             android:name=".HomeActivity"
+            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
             android:exported="false" />
     </application>
 

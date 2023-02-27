@@ -47,9 +47,9 @@ class RegionAdapter : ListAdapter<Region, RecyclerView.ViewHolder>(DiffCallback)
 
             itemView.apply {
                 val backgroundResource = if (item.isSelected) R.drawable.rounder_button_no_color else R.drawable.corner_button_outline
-                val textColor = if (item.isSelected) com.paparazziteam.cleanarquitecturepokemon.shared.R.color.colorWhite else com.paparazziteam.cleanarquitecturepokemon.shared.R.color.colorSecondary
+                val textColor = if (item.isSelected) com.paparazziteam.cleanarquitecturepokemon.shared.R.color.colorWhite else com.paparazziteam.cleanarquitecturepokemon.shared.R.color.colorPrimary
 
-                binding.title.apply { setBackgroundResourceWithTint(this,backgroundResource, com.paparazziteam.cleanarquitecturepokemon.shared.R.color.colorSecondary) }
+                binding.title.apply { setBackgroundResourceWithTint(this,backgroundResource, com.paparazziteam.cleanarquitecturepokemon.shared.R.color.colorPrimary) }
                 binding.title.setTextColor(context.getColor(textColor))
 
                 itemView.setOnClickListener {

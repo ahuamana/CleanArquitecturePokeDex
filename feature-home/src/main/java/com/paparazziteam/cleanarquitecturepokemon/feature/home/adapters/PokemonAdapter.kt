@@ -70,7 +70,7 @@ class PokemonAdapter : ListAdapter<PokemonResponse, RecyclerView.ViewHolder>(Dif
             }
 
             if(item.isSelected) {
-                binding.root.setCardBackgroundColorWithAlpha(com.paparazziteam.cleanarquitecturepokemon.shared.R.color.colorSecondary, 0.5f)
+                binding.root.setCardBackgroundColorWithAlpha(com.paparazziteam.cleanarquitecturepokemon.shared.R.color.colorPrimary, 0.5f)
             } else {
                 binding.root.removeCardBackgroundColor()
             }

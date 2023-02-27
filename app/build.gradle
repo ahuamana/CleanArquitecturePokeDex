@@ -64,6 +64,9 @@ dependencies {
     implementation hiltAndroid
     kapt hiltAndroidCompiler
 
+    //Lottie
+    implementation lottieLib
+
     // viewModelExtensionsLib
     implementation viewModelExtensionForActivityLib
     implementation viewModelExtensionForFragmentLib
