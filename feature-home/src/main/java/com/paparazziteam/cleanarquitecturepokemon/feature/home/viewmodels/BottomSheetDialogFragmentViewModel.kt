@@ -10,6 +10,9 @@ import com.paparazziteam.cleanarquitecturepokemon.usecases.DeleteTeamByUserUseCa
 import com.paparazziteam.cleanarquitecturepokemon.usecases.RemovePokemonFromTeamUseCase
 import com.paparazziteam.cleanarquitecturepokemon.usecases.UpdatePokemonTeamUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import pe.com.tarjetaw.android.client.shared.network.Event
 import pe.com.tarjetaw.android.client.shared.network.Resource
@@ -33,21 +36,16 @@ class BottomSheetDialogFragmentViewModel @Inject constructor(
     }
 
     fun deleteTeamByUser(userId: String) = viewModelScope.launch {
-        deleteTeamByIdUseCase(userId).apply {
-            when(this.status){
-                Resource.Status.SUCCESS -> {
-                    _eventsDeleteTeamByUser.value = Event(DeleteTeamByUserState.HideLoading)
-                    _eventsDeleteTeamByUser.value = Event(DeleteTeamByUserState.Success(this.data?.message ?: ""))
-                }
-                Resource.Status.ERROR -> {
-                    _eventsDeleteTeamByUser.value = Event(DeleteTeamByUserState.HideLoading)
-                    _eventsDeleteTeamByUser.value = Event(DeleteTeamByUserState.Error(this.message ?: ""))
-                }
-                Resource.Status.LOADING -> {
-                    _eventsDeleteTeamByUser.value = Event(DeleteTeamByUserState.ShowLoading)
-                }
-            }
-        }
+        _eventsDeleteTeamByUser.value = Event(DeleteTeamByUserState.ShowLoading)
+        deleteTeamByIdUseCase
+            .invoke(userId)
+            .onEach {
+                _eventsDeleteTeamByUser.value = Event(DeleteTeamByUserState.HideLoading)
+                _eventsDeleteTeamByUser.value = Event(DeleteTeamByUserState.Success(it.message))
+            }.catch {
+                _eventsDeleteTeamByUser.value = Event(DeleteTeamByUserState.HideLoading)
+                _eventsDeleteTeamByUser.value = Event(DeleteTeamByUserState.Error(it.message ?: ""))
+            }.launchIn(viewModelScope)
     }
 
     fun updatePokemonTeam(teamId: String,pokemonOld:PokemonResponse, pokemon: PokemonResponse) = viewModelScope.launch {

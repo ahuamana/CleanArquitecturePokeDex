@@ -10,6 +10,7 @@ import com.paparazziteam.cleanarquitecturepokemon.domain.GeneralResponse
 import com.paparazziteam.cleanarquitecturepokemon.domain.PokemonResponse
 import com.paparazziteam.cleanarquitecturepokemon.domain.PokemonTeam
 import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.tasks.await
 import pe.com.tarjetaw.android.client.shared.network.Resource
 import javax.inject.Inject
@@ -31,16 +32,10 @@ class PokemonFirebaseSourceImpl @Inject constructor(
         }
     }
 
-    override suspend fun deleteTeamById(teamId: String): Resource<GeneralResponse> {
+    override suspend fun deleteTeamById(teamId: String): GeneralResponse {
         Resource.loading(null)
-        val teamRef = database.child("teams").child(teamId)
-
-        return try {
-            teamRef.removeValue().await()
-            Resource.success(GeneralResponse(true,"Team deleted successfully"))
-        } catch (e: Exception) {
-            Resource.error(e.message?:"", null)
-        }
+        val teamRef = database.child("teams").child(teamId).removeValue().await()
+        return GeneralResponse(true,"Team deleted successfully")
     }
 
     override suspend fun deleteTeamByUser(userId: String): Resource<GeneralResponse> {
