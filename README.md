@@ -24,7 +24,7 @@ The project follows the Clean Architecture and SOLID principles for better scala
 
 ## Screenshots
 
-![pokedex](https://user-images.githubusercontent.com/60039961/221685745-35fd45bf-18cd-4d04-8adf-8ab3525ddc92.png)
+![pokedex](https://user-images.githubusercontent.com/60039961/221721897-53f2f7ca-b5f0-484a-ac52-0db9e6b6fc87.png)
 
 ## Permissions
 
